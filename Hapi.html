@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nebiyu / Hapi · coder + designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0a0a0a;
+      color: #f0f0f0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.6;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    .glass {
+      background: rgba(20, 30, 40, 0.4);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 32px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 0 40px rgba(255, 255, 255, 0.05);
+    }
+
+    .liquid-shine {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .liquid-shine::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15) 0%, transparent 60%);
+      opacity: 0.4;
+      pointer-events: none;
+      animation: liquidMove 15s infinite alternate;
+    }
+
+    @keyframes liquidMove {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(5%, 5%) rotate(5deg); }
+    }
+
+    .bg-section {
+      position: relative;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      isolation: isolate;
+    }
+
+    .bg-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,20,30,0.9) 100%);
+      z-index: -1;
+    }
+
+    .hero-bg {
+      background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=2070&q=80');
+    }
+
+    .expertise-bg {
+      background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=2070&q=80');
+    }
+
+    .bots-bg {
+      background-image: url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=2074&q=80');
+    }
+
+    .contact-bg {
+      background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=2070&q=80');
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1, h2, h3, p, .hero, .card, .stat-item, .bot-item, .contact, .footer {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: clamp(3.5rem, 10vw, 6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #fff 0%, #aaddff 50%, #c0a0ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(100, 150, 255, 0.3);
+    }
+
+    h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      background: linear-gradient(to right, #fff, #b0d0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+
+    p {
+      color: #ddd;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 20, 30, 0.7);
+      backdrop-filter: blur(12px) saturate(200%);
+      -webkit-backdrop-filter: blur(12px) saturate(200%);
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, #fff, #aaddff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: all 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #aaddff, #c0a0ff);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-name {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      margin-bottom: 1.5rem;
+      color: #aaddff;
+      text-shadow: 0 0 15px rgba(170, 221, 255, 0.5);
+    }
+
+    .badge-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    .badge {
+      background: rgba(170, 221, 255, 0.1);
+      backdrop-filter: blur(8px);
+      padding: 0.6rem 1.8rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+      border: 1px solid rgba(170, 221, 255, 0.3);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      padding: 0.9rem 2.5rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(135deg, #aaddff, #c0a0ff, #aaddff);
+      border-radius: 60px;
+      opacity: 0;
+      transition: opacity 0.4s;
+      z-index: -1;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #fff, #e0f0ff);
+      color: #0a0a0a;
+      box-shadow: 0 10px 25px -5px rgba(170, 221, 255, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 20px 35px -5px rgba(170, 221, 255, 0.6);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid rgba(170, 221, 255, 0.5);
+      color: #fff;
+    }
+
+    .btn-outline:hover {
+      background: rgba(170, 221, 255, 0.1);
+      transform: translateY(-4px);
+      border-color: #aaddff;
+      box-shadow: 0 10px 25px rgba(170, 221, 255, 0.3);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.8rem;
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 900px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 500px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: rgba(15, 25, 35, 0.5);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      padding: 2.8rem 1.5rem;
+      border-radius: 36px;
+      border: 1px solid rgba(170, 221, 255, 0.15);
+      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5), inset 0 0 30px rgba(170, 221, 255, 0.05);
+    }
+
+    .card:hover {
+      transform: translateY(-16px) scale(1.02);
+      border-color: rgba(170, 221, 255, 0.4);
+      box-shadow: 0 30px 50px -10px rgba(170, 221, 255, 0.2), inset 0 0 50px rgba(170, 221, 255, 0.1);
+    }
+
+    .card-icon {
+      font-size: 2.8rem;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(135deg, #aaddff, #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .year-chip {
+      display: inline-block;
+      background: rgba(170, 221, 255, 0.15);
+      backdrop-filter: blur(4px);
+      padding: 0.3rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin: 0.8rem 0;
+      color: #aaddff;
+      border: 1px solid rgba(170, 221, 255, 0.3);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-top: 1.2rem;
+    }
+
+    .skill-tags span {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(4px);
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #ddd;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+      margin: 3rem 0;
+      padding: 2rem;
+      background: rgba(10, 20, 30, 0.3);
+      backdrop-filter: blur(8px);
+      border-radius: 80px;
+      border: 1px solid rgba(170, 221, 255, 0.2);
+    }
+
+    .stat-item {
+      min-width: 120px;
+    }
+
+    .stat-number {
+      font-size: 4.2rem;
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, #fff, #aaddff, #c0a0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(170, 221, 255, 0.3);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      color: #aaddff;
+      letter-spacing: 0.15em;
+      font-weight: 600;
+    }
+
+    .bots-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 800px) {
+      .bots-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 500px) {
+      .bots-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .bot-item {
+      background: rgba(15, 25, 35, 0.5);
+      backdrop-filter: blur(12px) saturate(180%);
+      padding: 2.8rem 1.8rem;
+      border-radius: 36px;
+      border: 1px solid rgba(170, 221, 255, 0.15);
+      transition: all 0.5s ease;
+      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5);
+    }
+
+    .bot-item:hover {
+      transform: translateY(-12px);
+      border-color: rgba(170, 221, 255, 0.4);
+      box-shadow: 0 30px 50px -10px rgba(170, 221, 255, 0.3);
+    }
+
+    .bot-icon {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #aaddff, #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .bot-name {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(to right, #fff, #aaddff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .bot-link {
+      display: inline-block;
+      margin-top: 1rem;
+      background: rgba(170, 221, 255, 0.1);
+      color: #fff;
+      padding: 0.6rem 1.8rem;
+      border-radius: 60px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 1px solid rgba(170, 221, 255, 0.3);
+      transition: 0.3s;
+    }
+
+    .bot-link:hover {
+      background: rgba(170, 221, 255, 0.2);
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(170, 221, 255, 0.3);
+    }
+
+    .live-tag {
+      display: inline-block;
+      background: rgba(100, 255, 180, 0.15);
+      color: #a0ffc0;
+      padding: 0.4rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin: 1rem 0 0.5rem;
+      border: 1px solid rgba(160, 255, 192, 0.3);
+    }
+
+    .contact {
+      background: rgba(10, 20, 30, 0.5);
+      backdrop-filter: blur(16px) saturate(200%);
+      padding: 4rem 2rem;
+      border-radius: 60px;
+      margin: 2rem 0;
+      border: 1px solid rgba(170, 221, 255, 0.2);
+      box-shadow: 0 30px 50px -20px rgba(0,0,0,0.5), inset 0 0 60px rgba(170, 221, 255, 0.05);
+    }
+
+    .contact-email a {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 1rem 0;
+      color: #aaddff;
+      text-decoration: none;
+      transition: 0.3s;
+      border-bottom: 2px solid transparent;
+    }
+
+    .contact-email a:hover {
+      border-bottom-color: #aaddff;
+    }
+
+    .contact-phone a {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin: 1rem 0;
+      color: #aaddff;
+      text-decoration: none;
+      transition: 0.3s;
+      border-bottom: 2px solid transparent;
+    }
+
+    .contact-phone a:hover {
+      border-bottom-color: #aaddff;
+    }
+
+    .contact-socials {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin: 2rem 0;
+      font-size: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-socials a {
+      color: #ccc;
+      text-decoration: none;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .contact-socials a:hover {
+      color: #aaddff;
+      transform: translateY(-4px);
+    }
+
+    .contact-btn {
+      background: linear-gradient(135deg, #aaddff, #c0a0ff);
+      color: #0a0a0a;
+      border: none;
+      padding: 1rem 3.5rem;
+      border-radius: 60px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.4s;
+      margin-top: 1.5rem;
+      box-shadow: 0 10px 25px rgba(170, 221, 255, 0.3);
+    }
+
+    .contact-btn:hover {
+      transform: scale(1.05) translateY(-4px);
+      box-shadow: 0 20px 35px rgba(170, 221, 255, 0.5);
+    }
+
+    .footer {
+      padding: 2rem 0;
+      border-top: 1px solid rgba(170, 221, 255, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    .footer-social i {
+      font-size: 1.5rem;
+      margin-left: 2rem;
+      color: #aaddff;
+      transition: 0.3s;
+    }
+
+    .footer-social i:hover {
+      color: #fff;
+      transform: translateY(-4px);
+      text-shadow: 0 0 15px #aaddff;
+    }
+
+    @media (max-width: 600px) {
+      .footer {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .footer-social i {
+        margin: 0 1rem;
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .fade-up.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">NEBIYU / HAPI</div>
+    <div class="nav-links">
+      <a href="#work">WORK</a>
+      <a href="#contact">CONTACT</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero bg-section hero-bg liquid-shine" id="work">
+      <div class="container">
+        <div class="hero-name fade-up">NEBIYU ELYAS</div>
+        <h1 class="fade-up">CODER + DESIGNER</h1>
+        <p class="fade-up" style="font-size: 1.2rem;">7+ years of making cool stuff</p>
+        <p class="fade-up" style="margin: 1.5rem auto;">
+          Twenty years old, working with my dad. I build software, design brands, create motion, 
+          and make Telegram bots that actually work. <strong>Founder of DINK Payment</strong> international payments for Ethiopians.
+        </p>
+        <div class="badge-wrap fade-up">
+          <span class="badge">SYSTEMS</span>
+          <span class="badge">DESIGN</span>
+          <span class="badge">MOTION</span>
+          <span class="badge">BOTS</span>
+          <span class="badge">AI</span>
+        </div>
+        <div class="btn-group fade-up">
+          <a href="#" class="btn btn-primary"><i class="fa-regular fa-eye"></i> SEE WORK</a>
+          <a href="#" class="btn btn-outline"><i class="fa-regular fa-file"></i> RESUME</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-section expertise-bg">
+      <div class="container">
+        <h2 class="fade-up">WHAT I DO</h2>
+        <div class="cards-grid">
+          <div class="card fade-up">
+            <div class="card-icon"><i class="fa-solid fa-server"></i></div>
+            <h3>SYSTEMS</h3>
+            <div class="year-chip">7+ years</div>
+            <p>Software, hardware, networking — full stack IT.</p>
+            <div class="skill-tags">
+              <span>ARCHITECTURE</span><span>CLOUD</span><span>SECURITY</span>
+            </div>
+          </div>
+          <div class="card fade-up">
+            <div class="card-icon"><i class="fa-solid fa-pen-ruler"></i></div>
+            <h3>DESIGN</h3>
+            <div class="year-chip">7+ years</div>
+            <p>2000+ designs — logos, branding, social.</p>
+            <div class="skill-tags">
+              <span>LOGO</span><span>BRANDING</span><span>TYPOGRAPHY</span>
+            </div>
+          </div>
+          <div class="card fade-up">
+            <div class="card-icon"><i class="fa-solid fa-film"></i></div>
+            <h3>MOTION</h3>
+            <div class="year-chip">5+ years</div>
+            <p>500+ edits, motion graphics, kinetic typography.</p>
+            <div class="skill-tags">
+              <span>EDITING</span><span>AFTER EFFECTS</span><span>PREMIERE PRO</span><span>SOUND</span>
+            </div>
+          </div>
+          <div class="card fade-up">
+            <div class="card-icon"><i class="fa-brands fa-telegram"></i></div>
+            <h3>BOTS & AI</h3>
+            <div class="year-chip">4+ years</div>
+            <p>Three active Telegram bots, AI-assisted dev.</p>
+            <div class="skill-tags">
+              <span>PYTHON</span><span>TELEGRAM API</span><span>AI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="stats-row fade-up">
+        <div class="stat-item">
+          <div class="stat-number" data-target="7">0</div>
+          <div class="stat-label">YEARS</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="2000">0</div>
+          <div class="stat-label">DESIGNS</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="500">0</div>
+          <div class="stat-label">EDITS</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="3">0</div>
+          <div class="stat-label">BOTS</div>
+        </div>
+      </div>
+    </div>
+
+    <section class="bg-section bots-bg">
+      <div class="container">
+        <h2 class="fade-up">ACTIVE BOTS & PROJECTS</h2>
+        <p class="fade-up">Telegram bots and web apps running now</p>
+        <div class="bots-grid">
+          <div class="bot-item fade-up">
+            <div class="bot-icon"><i class="fa-brands fa-telegram"></i></div>
+            <div class="bot-name">DINK PAYMENT</div>
+            <p>International payment bot for Ethiopians. Instantly converts USD/EUR to ETB. Pay for Netflix, application fees, and more without waiting for admin.</p>
+            <span class="live-tag"><i class="fa-regular fa-circle-check"></i> LIVE</span>
+            <a href="#" class="bot-link">@DINKPaymentBot</a>
+          </div>
+          <div class="bot-item fade-up">
+            <div class="bot-icon"><i class="fa-brands fa-telegram"></i></div>
+            <div class="bot-name">SMUCEDU</div>
+            <p>St. Mary University students can check results directly on Telegram.</p>
+            <span class="live-tag"><i class="fa-regular fa-circle-check"></i> LIVE</span>
+            <a href="https://t.me/smuceduetbot" target="_blank" class="bot-link">@smuceduetbot</a>
+          </div>
+          <div class="bot-item fade-up">
+            <div class="bot-icon"><i class="fa-brands fa-telegram"></i></div>
+            <div class="bot-name">AAU 5K VENTS</div>
+            <p>Anonymous confession bot for AAU students.</p>
+            <span class="live-tag"><i class="fa-regular fa-circle-check"></i> LIVE</span>
+            <a href="https://t.me/AAU_5K_VENTS_bot" target="_blank" class="bot-link">@AAU_5K_VENTS_bot</a>
+          </div>
+          <div class="bot-item fade-up" style="grid-column: span 3; max-width: 600px; margin: 0 auto;">
+            <div class="bot-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+            <div class="bot-name">FINOT CHARITY</div>
+            <p>Website built for the Orthodox Church charity organization. Helping those in need.</p>
+            <span class="live-tag"><i class="fa-regular fa-circle-check"></i> LIVE</span>
+            <a href="https://finotcharity.vercel.app/" target="_blank" class="bot-link">finotcharity.vercel.app</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-section contact-bg" id="contact">
+      <div class="container">
+        <div class="contact fade-up">
+          <h2>LET'S CHAT</h2>
+          <div class="contact-email">
+            <a href="mailto:nebiyuelyas3@gmail.com" target="_blank">nebiyuelyas3@gmail.com</a>
+          </div>
+          <div class="contact-phone">
+            <a href="tel:+251924337490" target="_blank">+251 924 337 490</a>
+          </div>
+          <div class="contact-socials">
+            <a href="https://t.me/neb_ela" target="_blank"><i class="fa-brands fa-telegram"></i> @neb_ela</a>
+            <a href="https://instagram.com/hapi_ela" target="_blank"><i class="fa-brands fa-instagram"></i> @hapi_ela</a>
+            <a href="https://github.com/NebiyuEla" target="_blank"><i class="fa-brands fa-github"></i> NebiyuEla</a>
+          </div>
+          <button class="contact-btn" onclick="window.open('mailto:nebiyuelyas3@gmail.com', '_blank')">SAY HELLO</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="container footer">
+      <span>© 2025 NEBIYU / HAPI · coder + designer · DINK PAYMENT · FINOT CHARITY</span>
+      <div class="footer-social">
+        <a href="https://github.com/NebiyuEla" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="https://t.me/neb_ela" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+        <a href="https://instagram.com/hapi_ela" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function() {
+      const fadeElements = document.querySelectorAll('.fade-up');
+      const statNumbers = document.querySelectorAll('.stat-number');
+      let countersStarted = false;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            if (!countersStarted && entry.target.classList.contains('stat-item')) {
+              startCounters();
+              countersStarted = true;
+            }
+          }
+        });
+      }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+
+      fadeElements.forEach(el => observer.observe(el));
+
+      function startCounters() {
+        statNumbers.forEach(counter => {
+          const target = parseInt(counter.getAttribute('data-target'));
+          const update = () => {
+            const current = parseInt(counter.innerText) || 0;
+            if (current < target) {
+              const inc = Math.ceil(target / 40);
+              let next = current + inc;
+              counter.innerText = next > target ? target : next;
+              setTimeout(update, 20);
+            } else {
+              counter.innerText = target;
+            }
+          };
+          update();
+        });
+      }
+
+      const statsRow = document.querySelector('.stats-row');
+      if (statsRow) {
+        const statsObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !countersStarted) {
+              startCounters();
+              countersStarted = true;
+            }
+          });
+        }, { threshold: 0.2 });
+        statsObserver.observe(statsRow);
+      }
+    })();
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
