@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nebiyu / Hapi · coder + designer</title>
+  <title>Nebiyu Elyas · Hapi</title>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -16,824 +17,854 @@
     }
 
     body {
-      background-color: #0a0a0a;
-      color: #f0f0f0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      line-height: 1.6;
-      font-size: 16px;
+      background-color: #080b0f;
+      color: #edeff2;
+      font-family: 'Inter', 'Space Grotesk', sans-serif;
       overflow-x: hidden;
+      line-height: 1.5;
     }
 
-    .glass {
-      background: rgba(20, 30, 40, 0.4);
-      backdrop-filter: blur(12px) saturate(180%);
-      -webkit-backdrop-filter: blur(12px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 32px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 0 40px rgba(255, 255, 255, 0.05);
-    }
 
-    .liquid-shine {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .liquid-shine::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15) 0%, transparent 60%);
-      opacity: 0.4;
-      pointer-events: none;
-      animation: liquidMove 15s infinite alternate;
-    }
-
-    @keyframes liquidMove {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      100% { transform: translate(5%, 5%) rotate(5deg); }
-    }
-
-    .bg-section {
-      position: relative;
-      background-attachment: fixed;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      isolation: isolate;
-    }
-
-    .bg-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,20,30,0.9) 100%);
-      z-index: -1;
-    }
-
-    .hero-bg {
-      background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=2070&q=80');
-    }
-
-    .expertise-bg {
-      background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=2070&q=80');
-    }
-
-    .bots-bg {
-      background-image: url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=2074&q=80');
-    }
-
-    .contact-bg {
-      background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=2070&q=80');
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-      position: relative;
-      z-index: 2;
-    }
-
-    h1, h2, h3, p, .hero, .card, .stat-item, .bot-item, .contact, .footer {
-      text-align: center;
-    }
-
-    h1 {
-      font-size: clamp(3.5rem, 10vw, 6rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(135deg, #fff 0%, #aaddff 50%, #c0a0ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 30px rgba(100, 150, 255, 0.3);
-    }
-
-    h2 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      margin-bottom: 2rem;
-      background: linear-gradient(to right, #fff, #b0d0ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    h3 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #fff;
-    }
-
-    p {
-      color: #ddd;
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .navbar {
+    .video-backdrop {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
-      padding: 1.2rem 2rem;
+      height: 100%;
+      z-index: -3;
+      object-fit: cover;
+      opacity: 0.35;
+      pointer-events: none;
+      filter: saturate(1.3) hue-rotate(2deg);
+    }
+
+    .overlay-deep {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 40%, rgba(10, 15, 25, 0.8) 0%, #030507 95%);
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* ===== CURSOR – hybrid (first's energy + second's refinement) ===== */
+    .cursor-dot {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: #ffb347;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 25px #ffb347;
+    }
+
+    .cursor-ring {
+      position: fixed;
+      width: 42px;
+      height: 42px;
+      border: 2px solid rgba(255, 180, 70, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+      backdrop-filter: blur(4px);
+    }
+
+    a, button, .card, .project-tile, .stat-rotator, .nav-link, .social-icon, .founder-highlight {
+      cursor: none;
+    }
+
+    a:hover ~ .cursor-dot,
+    button:hover ~ .cursor-dot,
+    .card:hover ~ .cursor-dot,
+    .project-tile:hover ~ .cursor-dot {
+      width: 18px;
+      height: 18px;
+      background: #ffffff;
+      box-shadow: 0 0 40px #ffaa33;
+    }
+
+    a:hover ~ .cursor-ring,
+    button:hover ~ .cursor-ring,
+    .card:hover ~ .cursor-ring,
+    .project-tile:hover ~ .cursor-ring {
+      width: 70px;
+      height: 70px;
+      border-color: rgba(255, 200, 120, 0.8);
+      border-width: 3px;
+      backdrop-filter: blur(8px);
+    }
+
+    /* ===== WRAPPER / CONTAINER (mix: first's wrapper + second's container) ===== */
+    .wrapper {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 2rem 4rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ===== NAVIGATION (first's boldness + second's clash logo) ===== */
+    .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(10, 20, 30, 0.7);
-      backdrop-filter: blur(12px) saturate(200%);
-      -webkit-backdrop-filter: blur(12px) saturate(200%);
-      z-index: 100;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 1.8rem 0;
+      border-bottom: 1px solid rgba(255, 180, 70, 0.2);
+      margin-bottom: 2.5rem;
     }
 
     .logo {
-      font-weight: 800;
-      font-size: 1.4rem;
-      background: linear-gradient(135deg, #fff, #aaddff);
+      font-family: 'Clash Display', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      background: linear-gradient(130deg, #fff 20%, #ffb347 80%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(255, 180, 70, 0.3);
     }
 
     .nav-links {
       display: flex;
-      gap: 2.5rem;
+      gap: 4rem;
     }
 
     .nav-links a {
       text-decoration: none;
-      color: #fff;
+      color: #bbb;
       font-weight: 500;
-      transition: all 0.3s;
-      cursor: pointer;
+      font-size: 1.1rem;
+      transition: color 0.3s;
       position: relative;
     }
 
     .nav-links a::after {
       content: '';
       position: absolute;
-      bottom: -4px;
+      bottom: -6px;
       left: 0;
-      width: 0;
+      width: 0%;
       height: 2px;
-      background: linear-gradient(90deg, #aaddff, #c0a0ff);
-      transition: width 0.3s;
+      background: #ffb347;
+      transition: width 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .nav-links a:hover {
+      color: #fff;
     }
 
     .nav-links a:hover::after {
       width: 100%;
     }
 
+    /* ===== HERO – asymmetric, bold, with rotated stats block ===== */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 4rem;
+      margin: 4rem 0 9rem 0;
+      align-items: start;
     }
 
-    .hero-name {
-      font-size: 1rem;
+    .hero-left {
+      position: relative;
+    }
+
+    .hero-pre {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 1.2rem;
+      color: #ffb347;
       text-transform: uppercase;
-      letter-spacing: 0.4em;
-      margin-bottom: 1.5rem;
-      color: #aaddff;
-      text-shadow: 0 0 15px rgba(170, 221, 255, 0.5);
+      letter-spacing: 6px;
+      margin-bottom: 1.2rem;
+      transform: rotate(-1deg) translateX(-5px);
+      opacity: 0.9;
     }
 
-    .badge-wrap {
+    .hero-title {
+      font-family: 'Clash Display', sans-serif;
+      font-size: clamp(4.2rem, 8vw, 7rem);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero-title-line1 {
+      display: block;
+      background: linear-gradient(145deg, #fff 20%, #ffd8ad 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255, 200, 100, 0.3);
+    }
+
+    .hero-title-line2 {
+      display: block;
+      background: linear-gradient(145deg, #ffb347, #ffecb3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-left: 2rem;
+      text-shadow: 0 0 30px #ffb347;
+    }
+
+    .hero-description {
+      margin: 2.5rem 0 2rem 0;
+      font-size: 1.4rem;
+      max-width: 550px;
+      color: #ccc;
+      border-left: 4px solid #ffb347;
+      padding-left: 2rem;
+      font-weight: 350;
+      line-height: 1.6;
+    }
+
+    .hero-badge-strip {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.8rem;
-      justify-content: center;
+      gap: 1rem;
       margin: 2rem 0;
     }
 
-    .badge {
-      background: rgba(170, 221, 255, 0.1);
-      backdrop-filter: blur(8px);
-      padding: 0.6rem 1.8rem;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #fff;
-      border: 1px solid rgba(170, 221, 255, 0.3);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-    }
-
-    .btn {
-      padding: 0.9rem 2.5rem;
+    .hero-badge {
+      background: rgba(255, 180, 70, 0.08);
+      border: 1px solid rgba(255, 180, 70, 0.3);
+      backdrop-filter: blur(6px);
+      padding: 0.7rem 2rem;
       border-radius: 60px;
       font-weight: 600;
+      color: #ffd7a5;
       font-size: 0.95rem;
-      text-decoration: none;
-      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      border: none;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
     }
 
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(135deg, #aaddff, #c0a0ff, #aaddff);
+    .hero-right {
+      background: rgba(20, 28, 35, 0.4);
+      backdrop-filter: blur(20px);
       border-radius: 60px;
-      opacity: 0;
-      transition: opacity 0.4s;
-      z-index: -1;
+      padding: 3.2rem 3rem;
+      border: 1px solid rgba(255, 180, 70, 0.2);
+      box-shadow: 0 40px 60px -30px #000000cc;
+      transform: rotate(1.2deg) translateY(15px);
+    }
+
+    .hero-right p {
+      font-size: 1.3rem;
+      line-height: 1.7;
+      color: #deecfc;
+    }
+
+    .hero-right strong {
+      color: #ffb347;
+      font-weight: 700;
+    }
+
+    /* rotated stats block (star of the show) */
+    .stat-rotator {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+      margin-top: 2.8rem;
+      padding: 1.8rem 2rem;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(16px);
+      border-radius: 120px;
+      border: 1px solid rgba(255, 180, 70, 0.4);
+      transform: rotate(-1.5deg) scale(0.98);
+      transition: transform 0.4s;
+    }
+
+    .stat-rotator:hover {
+      transform: rotate(0deg) scale(1);
+    }
+
+    .stat-item {
+      text-align: center;
+      flex: 1;
+    }
+
+    .stat-value {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 3.2rem;
+      font-weight: 700;
+      background: linear-gradient(145deg, #ffffff, #ffb347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: #aac0d0;
+      letter-spacing: 2px;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 1.8rem;
+      margin: 2.8rem 0 1rem;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #fff, #e0f0ff);
-      color: #0a0a0a;
-      box-shadow: 0 10px 25px -5px rgba(170, 221, 255, 0.4);
+      background: #ffb347;
+      border: none;
+      padding: 1.1rem 3rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #0b0d10;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: all 0.4s;
+      box-shadow: 0 12px 30px -8px #ffb347b3;
+    }
+
+    .btn-primary i {
+      font-size: 1.3rem;
     }
 
     .btn-primary:hover {
+      background: #ffc264;
       transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 20px 35px -5px rgba(170, 221, 255, 0.6);
+      box-shadow: 0 25px 35px -8px #ffb347;
     }
 
     .btn-outline {
       background: transparent;
-      border: 2px solid rgba(170, 221, 255, 0.5);
+      border: 2px solid rgba(255, 180, 70, 0.6);
+      padding: 1.1rem 3rem;
+      border-radius: 60px;
+      font-weight: 600;
       color: #fff;
+      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
     }
 
     .btn-outline:hover {
-      background: rgba(170, 221, 255, 0.1);
+      border-color: #ffb347;
+      background: rgba(255, 180, 70, 0.1);
       transform: translateY(-4px);
-      border-color: #aaddff;
-      box-shadow: 0 10px 25px rgba(170, 221, 255, 0.3);
     }
 
-    .cards-grid {
+    /* ===== SECTION HEADERS (first's edgy style + clash) ===== */
+    .section-header {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 3.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 6rem 0 3rem 0;
+      position: relative;
+      display: inline-block;
+      color: #ffffff;
+    }
+
+    .section-header::before {
+      content: '●';
+      color: #ffb347;
+      font-size: 3rem;
+      position: absolute;
+      left: -2.5rem;
+      top: -0.5rem;
+      opacity: 0.6;
+    }
+
+    .section-header-right {
+      text-align: right;
+      display: block;
+      margin-left: auto;
+      width: fit-content;
+    }
+
+    .section-header-right::before {
+      left: auto;
+      right: -2.5rem;
+    }
+
+    /* ===== EXPERTISE GRID (first's broken grid + second's card style) ===== */
+    .expertise-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 1.8rem;
-      margin: 2rem 0;
-    }
-
-    @media (max-width: 900px) {
-      .cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 500px) {
-      .cards-grid {
-        grid-template-columns: 1fr;
-      }
+      gap: 2rem;
+      margin: 3rem 0 5rem;
     }
 
     .card {
-      background: rgba(15, 25, 35, 0.5);
-      backdrop-filter: blur(12px) saturate(180%);
-      -webkit-backdrop-filter: blur(12px) saturate(180%);
-      padding: 2.8rem 1.5rem;
-      border-radius: 36px;
-      border: 1px solid rgba(170, 221, 255, 0.15);
-      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
-      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5), inset 0 0 30px rgba(170, 221, 255, 0.05);
+      background: rgba(25, 30, 35, 0.6);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 180, 70, 0.15);
+      border-radius: 48px;
+      padding: 3rem 2rem;
+      transition: all 0.5s;
+      box-shadow: 0 30px 40px -25px #000;
+      transform: translateY(0);
     }
 
+    .card:nth-child(2) { transform: translateY(40px); }
+    .card:nth-child(3) { transform: translateY(20px); }
+    .card:nth-child(4) { transform: translateY(-20px); }
+
     .card:hover {
-      transform: translateY(-16px) scale(1.02);
-      border-color: rgba(170, 221, 255, 0.4);
-      box-shadow: 0 30px 50px -10px rgba(170, 221, 255, 0.2), inset 0 0 50px rgba(170, 221, 255, 0.1);
+      transform: translateY(-20px) scale(1.02);
+      border-color: #ffb347;
+      background: rgba(35, 42, 48, 0.8);
+      box-shadow: 0 40px 60px -15px #ffb34766;
     }
 
     .card-icon {
-      font-size: 2.8rem;
-      margin-bottom: 1.2rem;
-      background: linear-gradient(135deg, #aaddff, #fff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 3.2rem;
+      color: #ffb347;
+      margin-bottom: 1.8rem;
     }
 
-    .year-chip {
+    .card h3 {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .card .chip {
+      background: rgba(255, 180, 70, 0.15);
       display: inline-block;
-      background: rgba(170, 221, 255, 0.15);
-      backdrop-filter: blur(4px);
       padding: 0.3rem 1.4rem;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      margin: 0.8rem 0;
-      color: #aaddff;
-      border: 1px solid rgba(170, 221, 255, 0.3);
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-      margin-top: 1.2rem;
-    }
-
-    .skill-tags span {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(4px);
-      padding: 0.3rem 1.2rem;
-      border-radius: 40px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #ddd;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .stats-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 3rem;
-      margin: 3rem 0;
-      padding: 2rem;
-      background: rgba(10, 20, 30, 0.3);
-      backdrop-filter: blur(8px);
-      border-radius: 80px;
-      border: 1px solid rgba(170, 221, 255, 0.2);
-    }
-
-    .stat-item {
-      min-width: 120px;
-    }
-
-    .stat-number {
-      font-size: 4.2rem;
-      font-weight: 800;
-      line-height: 1;
-      background: linear-gradient(135deg, #fff, #aaddff, #c0a0ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 30px rgba(170, 221, 255, 0.3);
-    }
-
-    .stat-label {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      color: #aaddff;
-      letter-spacing: 0.15em;
-      font-weight: 600;
-    }
-
-    .bots-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.8rem;
-      margin: 2rem 0;
-    }
-
-    @media (max-width: 800px) {
-      .bots-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 500px) {
-      .bots-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .bot-item {
-      background: rgba(15, 25, 35, 0.5);
-      backdrop-filter: blur(12px) saturate(180%);
-      padding: 2.8rem 1.8rem;
-      border-radius: 36px;
-      border: 1px solid rgba(170, 221, 255, 0.15);
-      transition: all 0.5s ease;
-      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5);
-    }
-
-    .bot-item:hover {
-      transform: translateY(-12px);
-      border-color: rgba(170, 221, 255, 0.4);
-      box-shadow: 0 30px 50px -10px rgba(170, 221, 255, 0.3);
-    }
-
-    .bot-icon {
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, #aaddff, #fff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .bot-name {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 0.8rem;
-      background: linear-gradient(to right, #fff, #aaddff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .bot-link {
-      display: inline-block;
-      margin-top: 1rem;
-      background: rgba(170, 221, 255, 0.1);
-      color: #fff;
-      padding: 0.6rem 1.8rem;
       border-radius: 60px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border: 1px solid rgba(170, 221, 255, 0.3);
-      transition: 0.3s;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+      border: 1px solid #ffb34755;
+      color: #ffd7a5;
     }
 
-    .bot-link:hover {
-      background: rgba(170, 221, 255, 0.2);
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(170, 221, 255, 0.3);
+    .card p {
+      color: #b0c0d0;
     }
 
-    .live-tag {
-      display: inline-block;
-      background: rgba(100, 255, 180, 0.15);
-      color: #a0ffc0;
-      padding: 0.4rem 1.5rem;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      margin: 1rem 0 0.5rem;
-      border: 1px solid rgba(160, 255, 192, 0.3);
-    }
-
-    .contact {
-      background: rgba(10, 20, 30, 0.5);
-      backdrop-filter: blur(16px) saturate(200%);
+    /* ===== METRICS ROW (fusion of first's ribbon and second's metrics) ===== */
+    .metrics-row {
+      display: flex;
+      justify-content: space-around;
       padding: 4rem 2rem;
-      border-radius: 60px;
-      margin: 2rem 0;
-      border: 1px solid rgba(170, 221, 255, 0.2);
-      box-shadow: 0 30px 50px -20px rgba(0,0,0,0.5), inset 0 0 60px rgba(170, 221, 255, 0.05);
-    }
-
-    .contact-email a {
-      font-size: 1.8rem;
-      font-weight: 600;
-      margin: 1rem 0;
-      color: #aaddff;
-      text-decoration: none;
-      transition: 0.3s;
-      border-bottom: 2px solid transparent;
-    }
-
-    .contact-email a:hover {
-      border-bottom-color: #aaddff;
-    }
-
-    .contact-phone a {
-      font-size: 1.6rem;
-      font-weight: 600;
-      margin: 1rem 0;
-      color: #aaddff;
-      text-decoration: none;
-      transition: 0.3s;
-      border-bottom: 2px solid transparent;
-    }
-
-    .contact-phone a:hover {
-      border-bottom-color: #aaddff;
-    }
-
-    .contact-socials {
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      margin: 2rem 0;
-      font-size: 1.2rem;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(20px);
+      border-radius: 160px;
+      border: 1px solid rgba(255, 180, 70, 0.25);
+      margin: 5rem 0;
       flex-wrap: wrap;
+      gap: 2rem;
     }
 
-    .contact-socials a {
-      color: #ccc;
-      text-decoration: none;
-      transition: 0.3s;
+    .metric-block {
+      text-align: center;
+    }
+
+    .metric-number {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 5rem;
+      font-weight: 800;
+      background: linear-gradient(130deg, #ffb347, #fff4e0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+
+    .metric-label {
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      color: #ffd8b0;
+    }
+
+    /* ===== FOUNDER HIGHLIGHT (from second, with first's energy) ===== */
+    .founder-highlight {
+      background: rgba(255, 180, 70, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 80px;
+      padding: 2.2rem 3.5rem;
+      margin: 5rem 0 3rem;
+      border: 1px solid #ffb34780;
+      font-size: 1.5rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+      transform: rotate(0.5deg);
+      transition: transform 0.3s;
     }
 
-    .contact-socials a:hover {
-      color: #aaddff;
-      transform: translateY(-4px);
+    .founder-highlight:hover {
+      transform: rotate(-0.2deg) scale(1.01);
     }
 
-    .contact-btn {
-      background: linear-gradient(135deg, #aaddff, #c0a0ff);
-      color: #0a0a0a;
-      border: none;
-      padding: 1rem 3.5rem;
-      border-radius: 60px;
-      font-size: 1rem;
+    .founder-highlight i {
+      font-size: 3.2rem;
+      color: #ffb347;
+    }
+
+    .founder-highlight strong {
+      color: #f0d8b8;
       font-weight: 700;
-      cursor: pointer;
-      transition: all 0.4s;
-      margin-top: 1.5rem;
-      box-shadow: 0 10px 25px rgba(170, 221, 255, 0.3);
     }
 
-    .contact-btn:hover {
-      transform: scale(1.05) translateY(-4px);
-      box-shadow: 0 20px 35px rgba(170, 221, 255, 0.5);
+    /* ===== PROJECTS GRID (first's tilted tiles + second's structure) ===== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .project-tile {
+      background: rgba(20, 28, 35, 0.5);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 180, 70, 0.2);
+      border-radius: 56px;
+      padding: 3rem 2.5rem;
+      transition: all 0.6s;
+      box-shadow: 0 30px 30px -20px black;
+      transform: rotate(0deg);
+    }
+
+    .project-tile:nth-child(2) { transform: rotate(1deg) translateY(20px); }
+    .project-tile:nth-child(3) { transform: rotate(-1.5deg) translateY(10px); }
+    .project-tile:nth-child(4) { transform: rotate(2deg) translateY(30px); }
+    .project-tile:nth-child(5) { transform: rotate(-1deg) translateY(-10px); }
+    .project-tile:nth-child(6) { transform: rotate(0.5deg) translateY(15px); }
+
+    .project-tile:hover {
+      transform: scale(1.02) rotate(0deg) translateY(-15px);
+      border-color: #ffb347;
+      background: rgba(30, 38, 45, 0.8);
+      box-shadow: 0 40px 60px -15px #ffb34766;
+    }
+
+    .project-icon {
+      font-size: 3rem;
+      color: #ffb347;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-tile h4 {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      background: linear-gradient(145deg, #fff, #ffb990);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .project-sub {
+      font-size: 0.85rem;
+      color: #ffb347;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .project-desc {
+      color: #c0d0e0;
+      margin-bottom: 1.2rem;
+    }
+
+    .project-link {
+      color: #ffb347;
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1px dashed #ffb347;
+      padding-bottom: 2px;
+    }
+
+    /* ===== CONTACT AREA (first's messy + second's refinement) ===== */
+    .contact-area {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 3.5rem;
+      margin: 8rem 0 5rem;
+    }
+
+    .contact-left {
+      background: rgba(255, 180, 70, 0.05);
+      backdrop-filter: blur(16px);
+      border-radius: 70px;
+      padding: 3.5rem;
+      border: 1px solid #ffb34766;
+      transform: rotate(-1deg);
+    }
+
+    .contact-left h2 {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+
+    .contact-left a {
+      color: #ffb347;
+      font-size: 2rem;
+      text-decoration: none;
+      display: block;
+      margin: 1.5rem 0;
+      border-bottom: 2px solid transparent;
+      transition: 0.3s;
+      width: fit-content;
+    }
+
+    .contact-left a:hover {
+      border-bottom-color: #ffb347;
+    }
+
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      justify-content: center;
+    }
+
+    .social-bunch {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .social-icon {
+      font-size: 2.8rem;
+      color: #b0c0d0;
+      transition: 0.3s;
+    }
+
+    .social-icon:hover {
+      color: #ffb347;
+      transform: translateY(-10px) scale(1.1);
+    }
+
+    .contact-note {
+      font-size: 1.5rem;
+      color: #d0e0f0;
+      max-width: 500px;
     }
 
     .footer {
-      padding: 2rem 0;
-      border-top: 1px solid rgba(170, 221, 255, 0.2);
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      color: #aaa;
-      font-size: 0.9rem;
+      padding: 2.5rem 0 4rem;
+      border-top: 1px solid rgba(255, 180, 70, 0.2);
+      color: #9bb0c0;
     }
 
-    .footer-social i {
-      font-size: 1.5rem;
-      margin-left: 2rem;
-      color: #aaddff;
-      transition: 0.3s;
+    /* ===== REVEAL ANIMATION (first's reveal) ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(50px) scale(0.98);
+      transition: all 0.9s cubic-bezier(0.2, 0.8, 0.3, 1);
     }
 
-    .footer-social i:hover {
-      color: #fff;
-      transform: translateY(-4px);
-      text-shadow: 0 0 15px #aaddff;
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    @media (max-width: 1000px) {
+      .hero { grid-template-columns: 1fr; }
+      .expertise-grid { grid-template-columns: repeat(2,1fr); }
+      .card:nth-child(2), .card:nth-child(3), .card:nth-child(4) { transform: none; }
+      .projects-grid { grid-template-columns: repeat(2,1fr); }
+      .project-tile:nth-child(n) { transform: none; }
+      .contact-area { grid-template-columns: 1fr; }
+      .wrapper { padding: 1.5rem; }
     }
 
     @media (max-width: 600px) {
-      .footer {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      .footer-social i {
-        margin: 0 1rem;
-      }
-    }
-
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
-    }
-
-    .fade-up.revealed {
-      opacity: 1;
-      transform: translateY(0);
+      .expertise-grid, .projects-grid { grid-template-columns: 1fr; }
+      .metrics-row { flex-direction: column; gap: 2rem; }
     }
   </style>
 </head>
 <body>
+  <!-- video background (from second) -->
+  <video class="video-backdrop" autoplay muted loop playsinline>
+    <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_3840_2160_30fps.mp4" type="video/mp4">
+  </video>
+  <div class="overlay-deep"></div>
 
-  <nav class="navbar">
-    <div class="logo">NEBIYU / HAPI</div>
-    <div class="nav-links">
-      <a href="#work">WORK</a>
-      <a href="#contact">CONTACT</a>
-    </div>
-  </nav>
+  <!-- cursor duo (from first) -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
-  <main>
-    <section class="hero bg-section hero-bg liquid-shine" id="work">
-      <div class="container">
-        <div class="hero-name fade-up">NEBIYU ELYAS</div>
-        <h1 class="fade-up">CODER + DESIGNER</h1>
-        <p class="fade-up" style="font-size: 1.2rem;">7+ years of making cool stuff</p>
-        <p class="fade-up" style="margin: 1.5rem auto;">
-          Twenty years old, working with my dad. I build software, design brands, create motion, 
-          and make Telegram bots that actually work. <strong>Founder of DINK Payment</strong> international payments for Ethiopians.
-        </p>
-        <div class="badge-wrap fade-up">
-          <span class="badge">SYSTEMS</span>
-          <span class="badge">DESIGN</span>
-          <span class="badge">MOTION</span>
-          <span class="badge">BOTS</span>
-          <span class="badge">AI</span>
+  <div class="wrapper">
+    <nav class="navbar">
+      <div class="logo">Hapi</div>
+      <div class="nav-links">
+        <a href="#work">WORK</a>
+        <a href="#projects">PROJECTS</a>
+        <a href="#contact">CONTACT</a>
+      </div>
+    </nav>
+
+    <!-- HERO – fusion -->
+    <div class="hero" id="work">
+      <div class="hero-left reveal">
+        <div class="hero-pre">CREATIVE ENGINEER</div>
+        <div class="hero-title">
+          <span class="hero-title-line1">NEBIYU</span>
+          <span class="hero-title-line2">ELYAS</span>
         </div>
-        <div class="btn-group fade-up">
-          <a href="#" class="btn btn-primary"><i class="fa-regular fa-eye"></i> SEE WORK</a>
-          <a href="#" class="btn btn-outline"><i class="fa-regular fa-file"></i> RESUME</a>
+        <div class="hero-description">
+          Twenty, coding since 13. I build systems, design interactions, and craft bots that feel like magic.
+        </div>
+        <div class="hero-badge-strip">
+          <span class="hero-badge">SYSTEMS</span>
+          <span class="hero-badge">DESIGN</span>
+          <span class="hero-badge">MOTION</span>
+          <span class="hero-badge">BOTS</span>
+          <!-- new badge: live stream production (discreet) -->
+          <span class="hero-badge">LIVE STREAM</span>
+        </div>
+        <div class="action-row">
+          <button class="btn-primary" onclick="window.open('https://t.me/neb_ela','_blank')"><i class="fa-brands fa-telegram"></i> Reach me</button>
+          <button class="btn-outline"><i class="fa-regular fa-eye"></i> CV</button>
         </div>
       </div>
-    </section>
-
-    <section class="bg-section expertise-bg">
-      <div class="container">
-        <h2 class="fade-up">WHAT I DO</h2>
-        <div class="cards-grid">
-          <div class="card fade-up">
-            <div class="card-icon"><i class="fa-solid fa-server"></i></div>
-            <h3>SYSTEMS</h3>
-            <div class="year-chip">7+ years</div>
-            <p>Software, hardware, networking — full stack IT.</p>
-            <div class="skill-tags">
-              <span>ARCHITECTURE</span><span>CLOUD</span><span>SECURITY</span>
-            </div>
-          </div>
-          <div class="card fade-up">
-            <div class="card-icon"><i class="fa-solid fa-pen-ruler"></i></div>
-            <h3>DESIGN</h3>
-            <div class="year-chip">7+ years</div>
-            <p>2000+ designs — logos, branding, social.</p>
-            <div class="skill-tags">
-              <span>LOGO</span><span>BRANDING</span><span>TYPOGRAPHY</span>
-            </div>
-          </div>
-          <div class="card fade-up">
-            <div class="card-icon"><i class="fa-solid fa-film"></i></div>
-            <h3>MOTION</h3>
-            <div class="year-chip">5+ years</div>
-            <p>500+ edits, motion graphics, kinetic typography.</p>
-            <div class="skill-tags">
-              <span>EDITING</span><span>AFTER EFFECTS</span><span>PREMIERE PRO</span><span>SOUND</span>
-            </div>
-          </div>
-          <div class="card fade-up">
-            <div class="card-icon"><i class="fa-brands fa-telegram"></i></div>
-            <h3>BOTS & AI</h3>
-            <div class="year-chip">4+ years</div>
-            <p>Three active Telegram bots, AI-assisted dev.</p>
-            <div class="skill-tags">
-              <span>PYTHON</span><span>TELEGRAM API</span><span>AI</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="container">
-      <div class="stats-row fade-up">
-        <div class="stat-item">
-          <div class="stat-number" data-target="7">0</div>
-          <div class="stat-label">YEARS</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-target="2000">0</div>
-          <div class="stat-label">DESIGNS</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-target="500">0</div>
-          <div class="stat-label">EDITS</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-target="3">0</div>
-          <div class="stat-label">BOTS</div>
+      <div class="hero-right reveal">
+        <p><strong>DINK PAYMENT</strong> international payments for Ethiopians. Also developer of <strong>FINOT CHARITY</strong> website, 5+ active Telegram bots, 1000+ designs, and motion that moves. Experienced with OBS and live stream production.</p>
+        <!-- rotated stats block -->
+        <div class="stat-rotator">
+          <div class="stat-item"><span class="stat-value">7+</span><div class="stat-label">years</div></div>
+          <div class="stat-item"><span class="stat-value">1k+</span><div class="stat-label">designs</div></div>
+          <div class="stat-item"><span class="stat-value">5</span><div class="stat-label">live bots</div></div>
+          <div class="stat-item"><span class="stat-value">1</span><div class="stat-label">payment co.</div></div>
         </div>
       </div>
     </div>
 
-    <section class="bg-section bots-bg">
-      <div class="container">
-        <h2 class="fade-up">ACTIVE BOTS & PROJECTS</h2>
-        <p class="fade-up">Telegram bots and web apps running now</p>
-        <div class="bots-grid">
-          <div class="bot-item fade-up">
-            <div class="bot-icon"><i class="fa-brands fa-telegram"></i></div>
-            <div class="bot-name">DINK PAYMENT</div>
-            <p>International payment bot for Ethiopians. Instantly converts USD/EUR to ETB. Pay for Netflix, application fees, and more without waiting for admin.</p>
-            <span class="live-tag"><i class="fa-regular fa-circle-check"></i> LIVE</span>
-            <a href="#" class="bot-link">@DINKPaymentBot</a>
-          </div>
-          <div class="bot-item fade-up">
-            <div class="bot-icon"><i class="fa-brands fa-telegram"></i></div>
-            <div class="bot-name">SMUCEDU</div>
-            <p>St. Mary University students can check results directly on Telegram.</p>
-            <span class="live-tag"><i class="fa-regular fa-circle-check"></i> LIVE</span>
-            <a href="https://t.me/smuceduetbot" target="_blank" class="bot-link">@smuceduetbot</a>
-          </div>
-          <div class="bot-item fade-up">
-            <div class="bot-icon"><i class="fa-brands fa-telegram"></i></div>
-            <div class="bot-name">AAU 5K VENTS</div>
-            <p>Anonymous confession bot for AAU students.</p>
-            <span class="live-tag"><i class="fa-regular fa-circle-check"></i> LIVE</span>
-            <a href="https://t.me/AAU_5K_VENTS_bot" target="_blank" class="bot-link">@AAU_5K_VENTS_bot</a>
-          </div>
-          <div class="bot-item fade-up" style="grid-column: span 3; max-width: 600px; margin: 0 auto;">
-            <div class="bot-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
-            <div class="bot-name">FINOT CHARITY</div>
-            <p>Website built for the Orthodox Church charity organization. Helping those in need.</p>
-            <span class="live-tag"><i class="fa-regular fa-circle-check"></i> LIVE</span>
-            <a href="https://finotcharity.vercel.app/" target="_blank" class="bot-link">finotcharity.vercel.app</a>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- expertise -->
+    <div>
+      <h2 class="section-header reveal">(DISCIPLINES)</h2>
+    </div>
+    <div class="expertise-grid">
+      <div class="card reveal"><div class="card-icon"><i class="fa-solid fa-cubes"></i></div><h3>SYSTEMS</h3><div class="chip">7+ years</div><p>architecture · cloud · networking · security</p></div>
+      <div class="card reveal"><div class="card-icon"><i class="fa-solid fa-pen-fancy"></i></div><h3>DESIGN</h3><div class="chip">7+ years</div><p>branding · UI/UX · 1000+ deliverables</p></div>
+      <div class="card reveal"><div class="card-icon"><i class="fa-solid fa-film"></i></div><h3>MOTION</h3><div class="chip">5+ years</div><p>AE · Premiere · 500+ edits & graphics</p></div>
+      <div class="card reveal"><div class="card-icon"><i class="fa-brands fa-telegram"></i></div><h3>BOTS & AI</h3><div class="chip">4+ years</div><p>Python · Telegram API · AI-assisted dev</p></div>
+    </div>
 
-    <section class="bg-section contact-bg" id="contact">
-      <div class="container">
-        <div class="contact fade-up">
-          <h2>LET'S CHAT</h2>
-          <div class="contact-email">
-            <a href="mailto:nebiyuelyas3@gmail.com" target="_blank">nebiyuelyas3@gmail.com</a>
-          </div>
-          <div class="contact-phone">
-            <a href="tel:+251924337490" target="_blank">+251 924 337 490</a>
-          </div>
-          <div class="contact-socials">
-            <a href="https://t.me/neb_ela" target="_blank"><i class="fa-brands fa-telegram"></i> @neb_ela</a>
-            <a href="https://instagram.com/hapi_ela" target="_blank"><i class="fa-brands fa-instagram"></i> @hapi_ela</a>
-            <a href="https://github.com/NebiyuEla" target="_blank"><i class="fa-brands fa-github"></i> NebiyuEla</a>
-          </div>
-          <button class="contact-btn" onclick="window.open('mailto:nebiyuelyas3@gmail.com', '_blank')">SAY HELLO</button>
-        </div>
-      </div>
-    </section>
+    <!-- metrics row -->
+    <div class="metrics-row reveal">
+      <div class="metric-block"><span class="metric-number">7+</span><div class="metric-label">YEARS CODING</div></div>
+      <div class="metric-block"><span class="metric-number">1000+</span><div class="metric-label">DESIGNS</div></div>
+      <div class="metric-block"><span class="metric-number">500+</span><div class="metric-label">MOTION EDITS</div></div>
+      <div class="metric-block"><span class="metric-number">5</span><div class="metric-label">LIVE BOTS</div></div>
+    </div>
 
-    <div class="container footer">
-      <span>© 2025 NEBIYU / HAPI · coder + designer · DINK PAYMENT · FINOT CHARITY</span>
-      <div class="footer-social">
-        <a href="https://github.com/NebiyuEla" target="_blank"><i class="fa-brands fa-github"></i></a>
-        <a href="https://t.me/neb_ela" target="_blank"><i class="fa-brands fa-telegram"></i></a>
-        <a href="https://instagram.com/hapi_ela" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+    <!-- founder highlight + projects -->
+    <div id="projects">
+      <div class="founder-highlight reveal">
+        <i class="fa-solid fa-building-columns"></i>
+        <span><strong>DINK Payment</strong> founded to solve international payments for Ethiopians. Live, processing daily.</span>
+      </div>
+
+      <h2 class="section-header section-header-right reveal">(LIVE PROJECTS)</h2>
+      <div class="projects-grid">
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-brands fa-telegram"></i></div><h4>DINK PAYMENT</h4><div class="project-sub">fintech · founder</div><p class="project-desc">USD/ETB · Netflix, bills, tuition instant.</p><a href="#" class="project-link">@DINKPaymentBot →</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-brands fa-telegram"></i></div><h4>SMUCEDU</h4><div class="project-sub">university tool</div><p class="project-desc">St Mary's result checker on Telegram.</p><a href="https://t.me/smuceduetbot" target="_blank" class="project-link">@smuceduetbot</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-brands fa-telegram"></i></div><h4>AAU 5K VENTS</h4><div class="project-sub">anonymous</div><p class="project-desc">Confessions for AAU students.</p><a href="https://t.me/AAU_5K_VENTS_bot" target="_blank" class="project-link">@AAU_5K_VENTS_bot</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-brands fa-telegram"></i></div><h4>TUBEYOUROBOT</h4><div class="project-sub">media downloader</div><p class="project-desc">Video/audio from any link.</p><a href="https://t.me/TubeYouRobot" target="_blank" class="project-link">@TubeYouRobot</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-solid fa-hand-holding-heart"></i></div><h4>FINOT CHARITY</h4><div class="project-sub">website</div><p class="project-desc">Orthodox charity site · vercel</p><a href="https://finotcharity.vercel.app/" target="_blank" class="project-link">finotcharity.vercel.app</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-solid fa-paint-brush"></i></div><h4>Branding archive</h4><div class="project-sub">1000+ designs</div><p class="project-desc">Logos, identities, social assets.</p><a href="#" class="project-link">portfolio →</a></div>
       </div>
     </div>
-  </main>
+
+    <!-- contact area -->
+    <div class="contact-area" id="contact">
+      <div class="contact-left reveal">
+        <h2>REACH OUT <br> break the grid</h2>
+        <a href="mailto:nebiyuelyas3@gmail.com">nebiyuelyas3@gmail.com</a>
+        <a href="tel:+251924337490">+251 924 337 490</a>
+        <div style="margin: 2rem 0;">
+          <button class="btn-primary" onclick="window.location.href='mailto:nebiyuelyas3@gmail.com'">send a flare</button>
+        </div>
+      </div>
+      <div class="contact-right">
+        <div class="social-bunch">
+          <a href="https://t.me/neb_ela" target="_blank" class="social-icon"><i class="fa-brands fa-telegram"></i></a>
+          <a href="https://instagram.com/hapi_ela" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://github.com/NebiyuEla" target="_blank" class="social-icon"><i class="fa-brands fa-github"></i></a>
+        </div>
+        <div class="contact-note">
+          <p style="font-size: 1.8rem; font-weight: 600; line-height: 1.2;">Based in Ethiopia, working worldwide.</p>
+          <p style="margin: 1.5rem 0;">I don't do boring. Let's build something that bends perception.</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span>© 2025 NEBIYU ELYAS · founder DINK Payment</span>
+      <span>design · code · motion · bots · live stream</span>
+    </footer>
+  </div>
 
   <script>
     (function() {
-      const fadeElements = document.querySelectorAll('.fade-up');
-      const statNumbers = document.querySelectorAll('.stat-number');
-      let countersStarted = false;
+      // cursor
+      const dot = document.getElementById('cursorDot');
+      const ring = document.getElementById('cursorRing');
 
+      document.addEventListener('mousemove', (e) => {
+        dot.style.left = e.clientX + 'px';
+        dot.style.top = e.clientY + 'px';
+        setTimeout(() => {
+          ring.style.left = e.clientX + 'px';
+          ring.style.top = e.clientY + 'px';
+        }, 30);
+      });
+
+      // hover effect
+      const interactive = document.querySelectorAll('a, button, .card, .project-tile, .stat-rotator, .nav-link, .social-icon, .founder-highlight, .btn-primary, .btn-outline');
+      interactive.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          dot.style.width = '18px';
+          dot.style.height = '18px';
+          dot.style.background = '#ffffff';
+          ring.style.width = '70px';
+          ring.style.height = '70px';
+          ring.style.borderColor = 'rgba(255, 200, 120, 0.8)';
+          ring.style.borderWidth = '3px';
+        });
+        el.addEventListener('mouseleave', () => {
+          dot.style.width = '6px';
+          dot.style.height = '6px';
+          dot.style.background = '#ffb347';
+          ring.style.width = '42px';
+          ring.style.height = '42px';
+          ring.style.borderColor = 'rgba(255, 180, 70, 0.5)';
+          ring.style.borderWidth = '2px';
+        });
+      });
+
+      // scroll reveal
+      const reveals = document.querySelectorAll('.reveal');
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            if (!countersStarted && entry.target.classList.contains('stat-item')) {
-              startCounters();
-              countersStarted = true;
-            }
-          }
+          if (entry.isIntersecting) entry.target.classList.add('show');
         });
-      }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+      }, { threshold: 0.15, rootMargin: '0px 0px -70px 0px' });
+      reveals.forEach(r => observer.observe(r));
 
-      fadeElements.forEach(el => observer.observe(el));
-
-      function startCounters() {
-        statNumbers.forEach(counter => {
-          const target = parseInt(counter.getAttribute('data-target'));
-          const update = () => {
-            const current = parseInt(counter.innerText) || 0;
-            if (current < target) {
-              const inc = Math.ceil(target / 40);
-              let next = current + inc;
-              counter.innerText = next > target ? target : next;
-              setTimeout(update, 20);
-            } else {
-              counter.innerText = target;
-            }
-          };
-          update();
+      // smooth anchor
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
         });
-      }
-
-      const statsRow = document.querySelector('.stats-row');
-      if (statsRow) {
-        const statsObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting && !countersStarted) {
-              startCounters();
-              countersStarted = true;
-            }
-          });
-        }, { threshold: 0.2 });
-        statsObserver.observe(statsRow);
-      }
-    })();
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
       });
-    });
+    })();
   </script>
 </body>
-
 </html>
