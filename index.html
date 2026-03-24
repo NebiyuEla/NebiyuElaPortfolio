@@ -10,811 +10,127 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background-color: #080b0f;
-      color: #edeff2;
-      font-family: 'Inter', 'Space Grotesk', sans-serif;
-      overflow-x: hidden;
-      line-height: 1.5;
-    }
-
-
-    .video-backdrop {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -3;
-      object-fit: cover;
-      opacity: 0.35;
-      pointer-events: none;
-      filter: saturate(1.3) hue-rotate(2deg);
-    }
-
-    .overlay-deep {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 30% 40%, rgba(10, 15, 25, 0.8) 0%, #030507 95%);
-      z-index: -2;
-      pointer-events: none;
-    }
-
-    /* ===== CURSOR – hybrid (first's energy + second's refinement) ===== */
-    .cursor-dot {
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      background: #ffb347;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.2s, height 0.2s, background 0.2s, box-shadow 0.2s;
-      box-shadow: 0 0 25px #ffb347;
-    }
-
-    .cursor-ring {
-      position: fixed;
-      width: 42px;
-      height: 42px;
-      border: 2px solid rgba(255, 180, 70, 0.5);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s, height 0.3s, border-color 0.3s, backdrop-filter 0.3s;
-      backdrop-filter: blur(4px);
-    }
-
-    a, button, .card, .project-tile, .stat-rotator, .nav-link, .social-icon, .founder-highlight {
-      cursor: none;
-    }
-
-    a:hover ~ .cursor-dot,
-    button:hover ~ .cursor-dot,
-    .card:hover ~ .cursor-dot,
-    .project-tile:hover ~ .cursor-dot {
-      width: 18px;
-      height: 18px;
-      background: #ffffff;
-      box-shadow: 0 0 40px #ffaa33;
-    }
-
-    a:hover ~ .cursor-ring,
-    button:hover ~ .cursor-ring,
-    .card:hover ~ .cursor-ring,
-    .project-tile:hover ~ .cursor-ring {
-      width: 70px;
-      height: 70px;
-      border-color: rgba(255, 200, 120, 0.8);
-      border-width: 3px;
-      backdrop-filter: blur(8px);
-    }
-
-    /* ===== WRAPPER / CONTAINER (mix: first's wrapper + second's container) ===== */
-    .wrapper {
-      max-width: 1600px;
-      margin: 0 auto;
-      padding: 2rem 4rem;
-      position: relative;
-      z-index: 10;
-    }
-
-    /* ===== NAVIGATION (first's boldness + second's clash logo) ===== */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.8rem 0;
-      border-bottom: 1px solid rgba(255, 180, 70, 0.2);
-      margin-bottom: 2.5rem;
-    }
-
-    .logo {
-      font-family: 'Clash Display', sans-serif;
-      font-size: 2.4rem;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      background: linear-gradient(130deg, #fff 20%, #ffb347 80%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 30px rgba(255, 180, 70, 0.3);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 4rem;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: #bbb;
-      font-weight: 500;
-      font-size: 1.1rem;
-      transition: color 0.3s;
-      position: relative;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background: #ffb347;
-      transition: width 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
-    }
-
-    .nav-links a:hover {
-      color: #fff;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    /* ===== HERO – asymmetric, bold, with rotated stats block ===== */
-    .hero {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 4rem;
-      margin: 4rem 0 9rem 0;
-      align-items: start;
-    }
-
-    .hero-left {
-      position: relative;
-    }
-
-    .hero-pre {
-      font-family: 'Clash Display', sans-serif;
-      font-size: 1.2rem;
-      color: #ffb347;
-      text-transform: uppercase;
-      letter-spacing: 6px;
-      margin-bottom: 1.2rem;
-      transform: rotate(-1deg) translateX(-5px);
-      opacity: 0.9;
-    }
-
-    .hero-title {
-      font-family: 'Clash Display', sans-serif;
-      font-size: clamp(4.2rem, 8vw, 7rem);
-      font-weight: 700;
-      line-height: 0.95;
-      letter-spacing: -0.04em;
-      text-transform: uppercase;
-    }
-
-    .hero-title-line1 {
-      display: block;
-      background: linear-gradient(145deg, #fff 20%, #ffd8ad 80%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 20px rgba(255, 200, 100, 0.3);
-    }
-
-    .hero-title-line2 {
-      display: block;
-      background: linear-gradient(145deg, #ffb347, #ffecb3);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-left: 2rem;
-      text-shadow: 0 0 30px #ffb347;
-    }
-
-    .hero-description {
-      margin: 2.5rem 0 2rem 0;
-      font-size: 1.4rem;
-      max-width: 550px;
-      color: #ccc;
-      border-left: 4px solid #ffb347;
-      padding-left: 2rem;
-      font-weight: 350;
-      line-height: 1.6;
-    }
-
-    .hero-badge-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-
-    .hero-badge {
-      background: rgba(255, 180, 70, 0.08);
-      border: 1px solid rgba(255, 180, 70, 0.3);
-      backdrop-filter: blur(6px);
-      padding: 0.7rem 2rem;
-      border-radius: 60px;
-      font-weight: 600;
-      color: #ffd7a5;
-      font-size: 0.95rem;
-    }
-
-    .hero-right {
-      background: rgba(20, 28, 35, 0.4);
-      backdrop-filter: blur(20px);
-      border-radius: 60px;
-      padding: 3.2rem 3rem;
-      border: 1px solid rgba(255, 180, 70, 0.2);
-      box-shadow: 0 40px 60px -30px #000000cc;
-      transform: rotate(1.2deg) translateY(15px);
-    }
-
-    .hero-right p {
-      font-size: 1.3rem;
-      line-height: 1.7;
-      color: #deecfc;
-    }
-
-    .hero-right strong {
-      color: #ffb347;
-      font-weight: 700;
-    }
-
-    /* rotated stats block (star of the show) */
-    .stat-rotator {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2.5rem;
-      margin-top: 2.8rem;
-      padding: 1.8rem 2rem;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(16px);
-      border-radius: 120px;
-      border: 1px solid rgba(255, 180, 70, 0.4);
-      transform: rotate(-1.5deg) scale(0.98);
-      transition: transform 0.4s;
-    }
-
-    .stat-rotator:hover {
-      transform: rotate(0deg) scale(1);
-    }
-
-    .stat-item {
-      text-align: center;
-      flex: 1;
-    }
-
-    .stat-value {
-      font-family: 'Clash Display', sans-serif;
-      font-size: 3.2rem;
-      font-weight: 700;
-      background: linear-gradient(145deg, #ffffff, #ffb347);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      color: #aac0d0;
-      letter-spacing: 2px;
-    }
-
-    .action-row {
-      display: flex;
-      gap: 1.8rem;
-      margin: 2.8rem 0 1rem;
-    }
-
-    .btn-primary {
-      background: #ffb347;
-      border: none;
-      padding: 1.1rem 3rem;
-      border-radius: 60px;
-      font-weight: 700;
-      font-size: 1rem;
-      color: #0b0d10;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-      transition: all 0.4s;
-      box-shadow: 0 12px 30px -8px #ffb347b3;
-    }
-
-    .btn-primary i {
-      font-size: 1.3rem;
-    }
-
-    .btn-primary:hover {
-      background: #ffc264;
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 25px 35px -8px #ffb347;
-    }
-
-    .btn-outline {
-      background: transparent;
-      border: 2px solid rgba(255, 180, 70, 0.6);
-      padding: 1.1rem 3rem;
-      border-radius: 60px;
-      font-weight: 600;
-      color: #fff;
-      transition: 0.3s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .btn-outline:hover {
-      border-color: #ffb347;
-      background: rgba(255, 180, 70, 0.1);
-      transform: translateY(-4px);
-    }
-
-    /* ===== SECTION HEADERS (first's edgy style + clash) ===== */
-    .section-header {
-      font-family: 'Clash Display', sans-serif;
-      font-size: 3.8rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin: 6rem 0 3rem 0;
-      position: relative;
-      display: inline-block;
-      color: #ffffff;
-    }
-
-    .section-header::before {
-      content: '●';
-      color: #ffb347;
-      font-size: 3rem;
-      position: absolute;
-      left: -2.5rem;
-      top: -0.5rem;
-      opacity: 0.6;
-    }
-
-    .section-header-right {
-      text-align: right;
-      display: block;
-      margin-left: auto;
-      width: fit-content;
-    }
-
-    .section-header-right::before {
-      left: auto;
-      right: -2.5rem;
-    }
-
-    /* ===== EXPERTISE GRID (first's broken grid + second's card style) ===== */
-    .expertise-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-      margin: 3rem 0 5rem;
-    }
-
-    .card {
-      background: rgba(25, 30, 35, 0.6);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 180, 70, 0.15);
-      border-radius: 48px;
-      padding: 3rem 2rem;
-      transition: all 0.5s;
-      box-shadow: 0 30px 40px -25px #000;
-      transform: translateY(0);
-    }
-
-    .card:nth-child(2) { transform: translateY(40px); }
-    .card:nth-child(3) { transform: translateY(20px); }
-    .card:nth-child(4) { transform: translateY(-20px); }
-
-    .card:hover {
-      transform: translateY(-20px) scale(1.02);
-      border-color: #ffb347;
-      background: rgba(35, 42, 48, 0.8);
-      box-shadow: 0 40px 60px -15px #ffb34766;
-    }
-
-    .card-icon {
-      font-size: 3.2rem;
-      color: #ffb347;
-      margin-bottom: 1.8rem;
-    }
-
-    .card h3 {
-      font-family: 'Clash Display', sans-serif;
-      font-size: 2.2rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .card .chip {
-      background: rgba(255, 180, 70, 0.15);
-      display: inline-block;
-      padding: 0.3rem 1.4rem;
-      border-radius: 60px;
-      font-size: 0.85rem;
-      margin: 1rem 0;
-      border: 1px solid #ffb34755;
-      color: #ffd7a5;
-    }
-
-    .card p {
-      color: #b0c0d0;
-    }
-
-    /* ===== METRICS ROW (fusion of first's ribbon and second's metrics) ===== */
-    .metrics-row {
-      display: flex;
-      justify-content: space-around;
-      padding: 4rem 2rem;
-      background: rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(20px);
-      border-radius: 160px;
-      border: 1px solid rgba(255, 180, 70, 0.25);
-      margin: 5rem 0;
-      flex-wrap: wrap;
-      gap: 2rem;
-    }
-
-    .metric-block {
-      text-align: center;
-    }
-
-    .metric-number {
-      font-family: 'Clash Display', sans-serif;
-      font-size: 5rem;
-      font-weight: 800;
-      background: linear-gradient(130deg, #ffb347, #fff4e0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1;
-    }
-
-    .metric-label {
-      font-size: 1.1rem;
-      letter-spacing: 2px;
-      color: #ffd8b0;
-    }
-
-    /* ===== FOUNDER HIGHLIGHT (from second, with first's energy) ===== */
-    .founder-highlight {
-      background: rgba(255, 180, 70, 0.1);
-      backdrop-filter: blur(20px);
-      border-radius: 80px;
-      padding: 2.2rem 3.5rem;
-      margin: 5rem 0 3rem;
-      border: 1px solid #ffb34780;
-      font-size: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      transform: rotate(0.5deg);
-      transition: transform 0.3s;
-    }
-
-    .founder-highlight:hover {
-      transform: rotate(-0.2deg) scale(1.01);
-    }
-
-    .founder-highlight i {
-      font-size: 3.2rem;
-      color: #ffb347;
-    }
-
-    .founder-highlight strong {
-      color: #f0d8b8;
-      font-weight: 700;
-    }
-
-    /* ===== PROJECTS GRID (first's tilted tiles + second's structure) ===== */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-
-    .project-tile {
-      background: rgba(20, 28, 35, 0.5);
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 180, 70, 0.2);
-      border-radius: 56px;
-      padding: 3rem 2.5rem;
-      transition: all 0.6s;
-      box-shadow: 0 30px 30px -20px black;
-      transform: rotate(0deg);
-    }
-
-    .project-tile:nth-child(2) { transform: rotate(1deg) translateY(20px); }
-    .project-tile:nth-child(3) { transform: rotate(-1.5deg) translateY(10px); }
-    .project-tile:nth-child(4) { transform: rotate(2deg) translateY(30px); }
-    .project-tile:nth-child(5) { transform: rotate(-1deg) translateY(-10px); }
-    .project-tile:nth-child(6) { transform: rotate(0.5deg) translateY(15px); }
-
-    .project-tile:hover {
-      transform: scale(1.02) rotate(0deg) translateY(-15px);
-      border-color: #ffb347;
-      background: rgba(30, 38, 45, 0.8);
-      box-shadow: 0 40px 60px -15px #ffb34766;
-    }
-
-    .project-icon {
-      font-size: 3rem;
-      color: #ffb347;
-      margin-bottom: 1.5rem;
-    }
-
-    .project-tile h4 {
-      font-family: 'Clash Display', sans-serif;
-      font-size: 2.5rem;
-      font-weight: 700;
-      line-height: 1.1;
-      background: linear-gradient(145deg, #fff, #ffb990);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .project-sub {
-      font-size: 0.85rem;
-      color: #ffb347;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin: 0.5rem 0 1rem;
-    }
-
-    .project-desc {
-      color: #c0d0e0;
-      margin-bottom: 1.2rem;
-    }
-
-    .project-link {
-      color: #ffb347;
-      text-decoration: none;
-      font-weight: 600;
-      border-bottom: 1px dashed #ffb347;
-      padding-bottom: 2px;
-    }
-
-    /* ===== CONTACT AREA (first's messy + second's refinement) ===== */
-    .contact-area {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 3.5rem;
-      margin: 8rem 0 5rem;
-    }
-
-    .contact-left {
-      background: rgba(255, 180, 70, 0.05);
-      backdrop-filter: blur(16px);
-      border-radius: 70px;
-      padding: 3.5rem;
-      border: 1px solid #ffb34766;
-      transform: rotate(-1deg);
-    }
-
-    .contact-left h2 {
-      font-family: 'Clash Display', sans-serif;
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 2rem;
-    }
-
-    .contact-left a {
-      color: #ffb347;
-      font-size: 2rem;
-      text-decoration: none;
-      display: block;
-      margin: 1.5rem 0;
-      border-bottom: 2px solid transparent;
-      transition: 0.3s;
-      width: fit-content;
-    }
-
-    .contact-left a:hover {
-      border-bottom-color: #ffb347;
-    }
-
-    .contact-right {
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-      justify-content: center;
-    }
-
-    .social-bunch {
-      display: flex;
-      gap: 3rem;
-      flex-wrap: wrap;
-    }
-
-    .social-icon {
-      font-size: 2.8rem;
-      color: #b0c0d0;
-      transition: 0.3s;
-    }
-
-    .social-icon:hover {
-      color: #ffb347;
-      transform: translateY(-10px) scale(1.1);
-    }
-
-    .contact-note {
-      font-size: 1.5rem;
-      color: #d0e0f0;
-      max-width: 500px;
-    }
-
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      padding: 2.5rem 0 4rem;
-      border-top: 1px solid rgba(255, 180, 70, 0.2);
-      color: #9bb0c0;
-    }
-
-    /* ===== REVEAL ANIMATION (first's reveal) ===== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(50px) scale(0.98);
-      transition: all 0.9s cubic-bezier(0.2, 0.8, 0.3, 1);
-    }
-
-    .reveal.show {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    @media (max-width: 1000px) {
-      .hero { grid-template-columns: 1fr; }
-      .expertise-grid { grid-template-columns: repeat(2,1fr); }
-      .card:nth-child(2), .card:nth-child(3), .card:nth-child(4) { transform: none; }
-      .projects-grid { grid-template-columns: repeat(2,1fr); }
-      .project-tile:nth-child(n) { transform: none; }
-      .contact-area { grid-template-columns: 1fr; }
-      .wrapper { padding: 1.5rem; }
-    }
-
-    @media (max-width: 600px) {
-      .expertise-grid, .projects-grid { grid-template-columns: 1fr; }
-      .metrics-row { flex-direction: column; gap: 2rem; }
-    }
+    *{margin:0;padding:0;box-sizing:border-box}body{background-color:#080b0f;color:#edeff2;font-family:'Inter','Space Grotesk',sans-serif;overflow-x:hidden;line-height:1.5}.video-backdrop{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-3;object-fit:cover;opacity:.35;pointer-events:none;filter:saturate(1.3) hue-rotate(2deg)}.overlay-deep{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 30% 40%,rgba(10,15,25,.8) 0%,#030507 95%);z-index:-2;pointer-events:none}.cursor-dot{position:fixed;width:6px;height:6px;background:#ffb347;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s,box-shadow .2s;box-shadow:0 0 25px #ffb347}.cursor-ring{position:fixed;width:42px;height:42px;border:2px solid rgba(255,180,70,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s,backdrop-filter .3s;backdrop-filter:blur(4px)}a,button,.card,.project-tile,.stat-rotator,.nav-link,.social-icon,.founder-highlight{cursor:none}a:hover~.cursor-dot,button:hover~.cursor-dot,.card:hover~.cursor-dot,.project-tile:hover~.cursor-dot{width:18px;height:18px;background:#fff;box-shadow:0 0 40px #ffaa33}a:hover~.cursor-ring,button:hover~.cursor-ring,.card:hover~.cursor-ring,.project-tile:hover~.cursor-ring{width:70px;height:70px;border-color:rgba(255,200,120,.8);border-width:3px;backdrop-filter:blur(8px)}.wrapper{max-width:1600px;margin:0 auto;padding:2rem 4rem;position:relative;z-index:10}.navbar{display:flex;justify-content:space-between;align-items:center;padding:1.8rem 0;border-bottom:1px solid rgba(255,180,70,.2);margin-bottom:2.5rem}.logo{font-family:'Clash Display',sans-serif;font-size:2.4rem;font-weight:700;letter-spacing:-.04em;background:linear-gradient(130deg,#fff 20%,#ffb347 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 30px rgba(255,180,70,.3)}.nav-links{display:flex;gap:4rem}.nav-links a{text-decoration:none;color:#bbb;font-weight:500;font-size:1.1rem;transition:color .3s;position:relative}.nav-links a::after{content:'';position:absolute;bottom:-6px;left:0;width:0%;height:2px;background:#ffb347;transition:width .4s cubic-bezier(.2,.9,.3,1)}.nav-links a:hover{color:#fff}.nav-links a:hover::after{width:100%}.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:4rem;margin:4rem 0 9rem;align-items:start}.hero-left{position:relative}.hero-pre{font-family:'Clash Display',sans-serif;font-size:1.2rem;color:#ffb347;text-transform:uppercase;letter-spacing:6px;margin-bottom:1.2rem;transform:rotate(-1deg) translateX(-5px);opacity:.9}.hero-title{font-family:'Clash Display',sans-serif;font-size:clamp(4.2rem,8vw,7rem);font-weight:700;line-height:.95;letter-spacing:-.04em;text-transform:uppercase}.hero-title-line1{display:block;background:linear-gradient(145deg,#fff 20%,#ffd8ad 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 20px rgba(255,200,100,.3)}.hero-title-line2{display:block;background:linear-gradient(145deg,#ffb347,#ffecb3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-left:2rem;text-shadow:0 0 30px #ffb347}.hero-description{margin:2.5rem 0 2rem;font-size:1.4rem;max-width:580px;color:#ccc;border-left:4px solid #ffb347;padding-left:2rem;font-weight:350;line-height:1.6}.hero-badge-strip{display:flex;flex-wrap:wrap;gap:1rem;margin:2rem 0}.hero-badge{background:rgba(255,180,70,.08);border:1px solid rgba(255,180,70,.3);backdrop-filter:blur(6px);padding:.7rem 2rem;border-radius:60px;font-weight:600;color:#ffd7a5;font-size:.95rem}.hero-right{background:rgba(20,28,35,.4);backdrop-filter:blur(20px);border-radius:60px;padding:3.2rem 3rem;border:1px solid rgba(255,180,70,.2);box-shadow:0 40px 60px -30px #000000cc;transform:rotate(1.2deg) translateY(15px)}.hero-right p{font-size:1.3rem;line-height:1.7;color:#deecfc}.hero-right strong{color:#ffb347;font-weight:700}.stat-rotator{display:flex;flex-wrap:wrap;gap:2.5rem;margin-top:2.8rem;padding:1.8rem 2rem;background:rgba(0,0,0,.3);backdrop-filter:blur(16px);border-radius:120px;border:1px solid rgba(255,180,70,.4);transform:rotate(-1.5deg) scale(.98);transition:transform .4s}.stat-rotator:hover{transform:rotate(0) scale(1)}.stat-item{text-align:center;flex:1}.stat-value{font-family:'Clash Display',sans-serif;font-size:3.2rem;font-weight:700;background:linear-gradient(145deg,#fff,#ffb347);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}.stat-label{font-size:.8rem;text-transform:uppercase;color:#aac0d0;letter-spacing:2px}.action-row{display:flex;gap:1.8rem;margin:2.8rem 0 1rem;flex-wrap:wrap}.btn-primary{background:#ffb347;border:none;padding:1.1rem 3rem;border-radius:60px;font-weight:700;font-size:1rem;color:#0b0d10;display:inline-flex;align-items:center;gap:.8rem;transition:all .4s;box-shadow:0 12px 30px -8px #ffb347b3}.btn-primary i{font-size:1.3rem}.btn-primary:hover{background:#ffc264;transform:translateY(-4px) scale(1.02);box-shadow:0 25px 35px -8px #ffb347}.btn-outline{background:transparent;border:2px solid rgba(255,180,70,.6);padding:1.1rem 3rem;border-radius:60px;font-weight:600;color:#fff;transition:.3s;display:inline-flex;align-items:center;gap:.8rem}.btn-outline:hover{border-color:#ffb347;background:rgba(255,180,70,.1);transform:translateY(-4px)}.section-header{font-family:'Clash Display',sans-serif;font-size:3.8rem;font-weight:700;letter-spacing:-.02em;margin:6rem 0 3rem;position:relative;display:inline-block;color:#fff}.section-header::before{content:'●';color:#ffb347;font-size:3rem;position:absolute;left:-2.5rem;top:-.5rem;opacity:.6}.section-header-right{text-align:right;display:block;margin-left:auto;width:fit-content}.section-header-right::before{left:auto;right:-2.5rem}
+    .expertise-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin:3rem 0 5rem}.card{background:rgba(25,30,35,.6);backdrop-filter:blur(16px);border:1px solid rgba(255,180,70,.15);border-radius:48px;padding:3rem 2rem;transition:all .5s;box-shadow:0 30px 40px -25px #000;transform:translateY(0)}.card:nth-child(2){transform:translateY(40px)}.card:nth-child(3){transform:translateY(20px)}.card:nth-child(4){transform:translateY(-20px)}.card:hover{transform:translateY(-20px) scale(1.02);border-color:#ffb347;background:rgba(35,42,48,.8);box-shadow:0 40px 60px -15px #ffb34766}.card-icon{font-size:3.2rem;color:#ffb347;margin-bottom:1.8rem}.card h3{font-family:'Clash Display',sans-serif;font-size:2.2rem;font-weight:600;margin-bottom:.5rem}.card .chip{background:rgba(255,180,70,.15);display:inline-block;padding:.3rem 1.4rem;border-radius:60px;font-size:.85rem;margin:1rem 0;border:1px solid #ffb34755;color:#ffd7a5}.card p{color:#b0c0d0}.metrics-row{display:flex;justify-content:space-around;padding:4rem 2rem;background:rgba(0,0,0,.35);backdrop-filter:blur(20px);border-radius:160px;border:1px solid rgba(255,180,70,.25);margin:5rem 0;flex-wrap:wrap;gap:2rem}.metric-block{text-align:center}.metric-number{font-family:'Clash Display',sans-serif;font-size:5rem;font-weight:800;background:linear-gradient(130deg,#ffb347,#fff4e0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}.metric-label{font-size:1.1rem;letter-spacing:2px;color:#ffd8b0}.founder-highlight{background:rgba(255,180,70,.1);backdrop-filter:blur(20px);border-radius:80px;padding:2.2rem 3.5rem;margin:5rem 0 3rem;border:1px solid #ffb34780;font-size:1.5rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;transform:rotate(.5deg);transition:transform .3s}.founder-highlight:hover{transform:rotate(-.2deg) scale(1.01)}.founder-highlight i{font-size:3.2rem;color:#ffb347}.founder-highlight strong{color:#f0d8b8;font-weight:700}.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin:3rem 0}.project-tile{background:rgba(20,28,35,.5);backdrop-filter:blur(18px);border:1px solid rgba(255,180,70,.2);border-radius:56px;padding:3rem 2.5rem;transition:all .6s;box-shadow:0 30px 30px -20px #000;transform:rotate(0);display:flex;flex-direction:column;min-height:100%}.project-tile:nth-child(2){transform:rotate(1deg) translateY(20px)}.project-tile:nth-child(3){transform:rotate(-1.5deg) translateY(10px)}.project-tile:nth-child(4){transform:rotate(2deg) translateY(30px)}.project-tile:nth-child(5){transform:rotate(-1deg) translateY(-10px)}.project-tile:nth-child(6){transform:rotate(.5deg) translateY(15px)}.project-tile:nth-child(7){transform:rotate(-1.2deg) translateY(10px)}.project-tile:nth-child(8){transform:rotate(1.1deg) translateY(22px)}.project-tile:nth-child(9){transform:rotate(-.8deg) translateY(-8px)}.project-tile:nth-child(10){transform:rotate(1.6deg) translateY(18px)}.project-tile:nth-child(11){transform:rotate(-1.4deg) translateY(12px)}.project-tile:hover{transform:scale(1.02) rotate(0) translateY(-15px);border-color:#ffb347;background:rgba(30,38,45,.8);box-shadow:0 40px 60px -15px #ffb34766}.project-icon{font-size:3rem;color:#ffb347;margin-bottom:1.5rem}.project-tile h4{font-family:'Clash Display',sans-serif;font-size:2.4rem;font-weight:700;line-height:1.1;background:linear-gradient(145deg,#fff,#ffb990);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.project-sub{font-size:.85rem;color:#ffb347;text-transform:uppercase;letter-spacing:2px;margin:.5rem 0 1rem}.project-desc{color:#c0d0e0;margin-bottom:1rem}.project-spec{color:#d7e3ef;font-size:.95rem;margin-bottom:.55rem}.project-spec strong{color:#ffcf94}.project-link{color:#ffb347;text-decoration:none;font-weight:600;border-bottom:1px dashed #ffb347;padding-bottom:2px;width:fit-content;margin-top:auto}
+    .contact-area{display:grid;grid-template-columns:1fr 1.5fr;gap:3.5rem;margin:8rem 0 5rem}.contact-left{background:rgba(255,180,70,.05);backdrop-filter:blur(16px);border-radius:70px;padding:3.5rem;border:1px solid #ffb34766;transform:rotate(-1deg)}.contact-left h2{font-family:'Clash Display',sans-serif;font-size:3.5rem;font-weight:700;margin-bottom:2rem}.contact-left a{color:#ffb347;font-size:2rem;text-decoration:none;display:block;margin:1.5rem 0;border-bottom:2px solid transparent;transition:.3s;width:fit-content}.contact-left a:hover{border-bottom-color:#ffb347}.contact-right{display:flex;flex-direction:column;gap:2.5rem;justify-content:center}.social-bunch{display:flex;gap:3rem;flex-wrap:wrap}.social-icon{font-size:2.8rem;color:#b0c0d0;transition:.3s}.social-icon:hover{color:#ffb347;transform:translateY(-10px) scale(1.1)}.contact-note{font-size:1.5rem;color:#d0e0f0;max-width:560px}.footer{display:flex;justify-content:space-between;padding:2.5rem 0 4rem;border-top:1px solid rgba(255,180,70,.2);color:#9bb0c0;gap:1rem;flex-wrap:wrap}.reveal{opacity:0;transform:translateY(50px) scale(.98);transition:all .9s cubic-bezier(.2,.8,.3,1)}.reveal.show{opacity:1;transform:translateY(0) scale(1)}@media (max-width:1000px){.hero{grid-template-columns:1fr}.expertise-grid{grid-template-columns:repeat(2,1fr)}.card:nth-child(2),.card:nth-child(3),.card:nth-child(4){transform:none}.projects-grid{grid-template-columns:repeat(2,1fr)}.project-tile:nth-child(n){transform:none}.contact-area{grid-template-columns:1fr}.wrapper{padding:1.5rem}}@media (max-width:600px){.expertise-grid,.projects-grid{grid-template-columns:1fr}.metrics-row{flex-direction:column;gap:2rem}.action-row,.nav-links{gap:1rem}.hero-title-line2{margin-left:0}.contact-left a{font-size:1.4rem}}
   </style>
 </head>
 <body>
-  <!-- video background (from second) -->
   <video class="video-backdrop" autoplay muted loop playsinline>
     <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_3840_2160_30fps.mp4" type="video/mp4">
   </video>
   <div class="overlay-deep"></div>
-
-  <!-- cursor duo (from first) -->
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-ring" id="cursorRing"></div>
-
   <div class="wrapper">
     <nav class="navbar">
       <div class="logo">Hapi</div>
       <div class="nav-links">
         <a href="#work">WORK</a>
         <a href="#projects">PROJECTS</a>
+        <a href="resume.html" target="_blank" rel="noreferrer">CV</a>
         <a href="#contact">CONTACT</a>
       </div>
     </nav>
-
-    <!-- HERO – fusion -->
     <div class="hero" id="work">
       <div class="hero-left reveal">
-        <div class="hero-pre">CREATIVE ENGINEER</div>
+        <div class="hero-pre">AI ADVANCED BUILDER</div>
         <div class="hero-title">
           <span class="hero-title-line1">NEBIYU</span>
           <span class="hero-title-line2">ELYAS</span>
         </div>
         <div class="hero-description">
-          Twenty, coding since 13. I build systems, design interactions, and craft bots that feel like magic.
+          I build systems, design interactions, fintech products, SaaS tools, games, and AI experiences
+          that feel bold, useful, and ready for the real world.
         </div>
         <div class="hero-badge-strip">
           <span class="hero-badge">SYSTEMS</span>
           <span class="hero-badge">DESIGN</span>
-          <span class="hero-badge">MOTION</span>
+          <span class="hero-badge">SAAS</span>
           <span class="hero-badge">BOTS</span>
-          <!-- new badge: live stream production (discreet) -->
+          <span class="hero-badge">AI</span>
           <span class="hero-badge">LIVE STREAM</span>
         </div>
         <div class="action-row">
           <button class="btn-primary" onclick="window.open('https://t.me/neb_ela','_blank')"><i class="fa-brands fa-telegram"></i> Reach me</button>
-          <button class="btn-outline"><i class="fa-regular fa-eye"></i> CV</button>
+          <button class="btn-outline" onclick="window.open('resume.html','_blank')"><i class="fa-regular fa-eye"></i> CV</button>
         </div>
       </div>
       <div class="hero-right reveal">
-        <p><strong>DINK PAYMENT</strong> international payments for Ethiopians. Also developer of <strong>FINOT CHARITY</strong> website, 5+ active Telegram bots, 1000+ designs, and motion that moves. Experienced with OBS and live stream production.</p>
-        <!-- rotated stats block -->
+        <p>Full-stack developer building fintech products, SaaS platforms, websites, games, bots, and AI tools end to end, from design and user experience to development, AI integration, networking, and final delivery.</p>
         <div class="stat-rotator">
           <div class="stat-item"><span class="stat-value">7+</span><div class="stat-label">years</div></div>
           <div class="stat-item"><span class="stat-value">1k+</span><div class="stat-label">designs</div></div>
           <div class="stat-item"><span class="stat-value">5</span><div class="stat-label">live bots</div></div>
-          <div class="stat-item"><span class="stat-value">1</span><div class="stat-label">payment co.</div></div>
+          <div class="stat-item"><span class="stat-value">11</span><div class="stat-label">featured builds</div></div>
         </div>
       </div>
     </div>
-
-    <!-- expertise -->
     <div>
       <h2 class="section-header reveal">(DISCIPLINES)</h2>
     </div>
     <div class="expertise-grid">
-      <div class="card reveal"><div class="card-icon"><i class="fa-solid fa-cubes"></i></div><h3>SYSTEMS</h3><div class="chip">7+ years</div><p>architecture · cloud · networking · security</p></div>
-      <div class="card reveal"><div class="card-icon"><i class="fa-solid fa-pen-fancy"></i></div><h3>DESIGN</h3><div class="chip">7+ years</div><p>branding · UI/UX · 1000+ deliverables</p></div>
-      <div class="card reveal"><div class="card-icon"><i class="fa-solid fa-film"></i></div><h3>MOTION</h3><div class="chip">5+ years</div><p>AE · Premiere · 500+ edits & graphics</p></div>
-      <div class="card reveal"><div class="card-icon"><i class="fa-brands fa-telegram"></i></div><h3>BOTS & AI</h3><div class="chip">4+ years</div><p>Python · Telegram API · AI-assisted dev</p></div>
+      <div class="card reveal"><div class="card-icon"><i class="fa-solid fa-cubes"></i></div><h3>SYSTEMS</h3><div class="chip">7+ years</div><p>architecture · cloud · networking · product systems</p></div>
+      <div class="card reveal"><div class="card-icon"><i class="fa-solid fa-pen-fancy"></i></div><h3>DESIGN</h3><div class="chip">7+ years</div><p>branding · UI/UX · visual direction · 1000+ deliverables</p></div>
+      <div class="card reveal"><div class="card-icon"><i class="fa-solid fa-layer-group"></i></div><h3>SAAS & WEB</h3><div class="chip">4+ years</div><p>platforms · websites · product flows · front-end build</p></div>
+      <div class="card reveal"><div class="card-icon"><i class="fa-solid fa-robot"></i></div><h3>BOTS & AI</h3><div class="chip">4+ years</div><p>Python · Telegram API · AI automation · chatbot products</p></div>
     </div>
-
-    <!-- metrics row -->
     <div class="metrics-row reveal">
       <div class="metric-block"><span class="metric-number">7+</span><div class="metric-label">YEARS CODING</div></div>
       <div class="metric-block"><span class="metric-number">1000+</span><div class="metric-label">DESIGNS</div></div>
-      <div class="metric-block"><span class="metric-number">500+</span><div class="metric-label">MOTION EDITS</div></div>
       <div class="metric-block"><span class="metric-number">5</span><div class="metric-label">LIVE BOTS</div></div>
+      <div class="metric-block"><span class="metric-number">11</span><div class="metric-label">FEATURED PROJECTS</div></div>
     </div>
-
-    <!-- founder highlight + projects -->
     <div id="projects">
       <div class="founder-highlight reveal">
         <i class="fa-solid fa-building-columns"></i>
-        <span><strong>DINK Payment</strong> founded to solve international payments for Ethiopians. Live, processing daily.</span>
+        <span><strong>DINK Payment</strong> founded to solve international and subscription payments for Ethiopians, with additional builds across church platforms, SaaS, AI, and consumer products.</span>
       </div>
-
-      <h2 class="section-header section-header-right reveal">(LIVE PROJECTS)</h2>
+      <h2 class="section-header section-header-right reveal">(FEATURED PROJECTS)</h2>
       <div class="projects-grid">
-        <div class="project-tile reveal"><div class="project-icon"><i class="fa-brands fa-telegram"></i></div><h4>DINK PAYMENT</h4><div class="project-sub">fintech · founder</div><p class="project-desc">USD/ETB · Netflix, bills, tuition instant.</p><a href="#" class="project-link">@DINKPaymentBot →</a></div>
-        <div class="project-tile reveal"><div class="project-icon"><i class="fa-brands fa-telegram"></i></div><h4>SMUCEDU</h4><div class="project-sub">university tool</div><p class="project-desc">St Mary's result checker on Telegram.</p><a href="https://t.me/smuceduetbot" target="_blank" class="project-link">@smuceduetbot</a></div>
-        <div class="project-tile reveal"><div class="project-icon"><i class="fa-brands fa-telegram"></i></div><h4>AAU 5K VENTS</h4><div class="project-sub">anonymous</div><p class="project-desc">Confessions for AAU students.</p><a href="https://t.me/AAU_5K_VENTS_bot" target="_blank" class="project-link">@AAU_5K_VENTS_bot</a></div>
-        <div class="project-tile reveal"><div class="project-icon"><i class="fa-brands fa-telegram"></i></div><h4>TUBEYOUROBOT</h4><div class="project-sub">media downloader</div><p class="project-desc">Video/audio from any link.</p><a href="https://t.me/TubeYouRobot" target="_blank" class="project-link">@TubeYouRobot</a></div>
-        <div class="project-tile reveal"><div class="project-icon"><i class="fa-solid fa-hand-holding-heart"></i></div><h4>FINOT CHARITY</h4><div class="project-sub">website</div><p class="project-desc">Orthodox charity site · vercel</p><a href="https://finotcharity.vercel.app/" target="_blank" class="project-link">finotcharity.vercel.app</a></div>
-        <div class="project-tile reveal"><div class="project-icon"><i class="fa-solid fa-paint-brush"></i></div><h4>Branding archive</h4><div class="project-sub">1000+ designs</div><p class="project-desc">Logos, identities, social assets.</p><a href="#" class="project-link">portfolio →</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-brands fa-telegram"></i></div><h4>DINK PAYMENT</h4><div class="project-sub">fintech · founder</div><p class="project-desc">USD/ETB · Netflix, bills, tuition instant.</p><p class="project-spec"><strong>Programming:</strong> Python, JavaScript</p><a href="https://t.me/DINKPaymentBot" target="_blank" rel="noreferrer" class="project-link">@DINKPaymentBot →</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-brands fa-telegram"></i></div><h4>SMUCEDU</h4><div class="project-sub">university tool</div><p class="project-desc">St Mary's result checker on Telegram.</p><p class="project-spec"><strong>Programming:</strong> Python</p><a href="https://t.me/smuceduetbot" target="_blank" rel="noreferrer" class="project-link">@smuceduetbot</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-brands fa-telegram"></i></div><h4>AAU 5K VENTS</h4><div class="project-sub">anonymous</div><p class="project-desc">Confessions for AAU students.</p><p class="project-spec"><strong>Programming:</strong> Python</p><a href="https://t.me/AAU_5K_VENTS_bot" target="_blank" rel="noreferrer" class="project-link">@AAU_5K_VENTS_bot</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-brands fa-telegram"></i></div><h4>TUBEYOUROBOT</h4><div class="project-sub">media downloader</div><p class="project-desc">Video/audio from any link.</p><p class="project-spec"><strong>Programming:</strong> Python</p><a href="https://t.me/TubeYouRobot" target="_blank" rel="noreferrer" class="project-link">@TubeYouRobot</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-solid fa-hand-holding-heart"></i></div><h4>FINOT CHARITY</h4><div class="project-sub">website</div><p class="project-desc">Orthodox charity site · vercel</p><p class="project-spec"><strong>Programming:</strong> HTML, CSS, JavaScript</p><p class="project-spec"><strong>Hosting:</strong> Vercel</p><a href="https://finotcharity.vercel.app/" target="_blank" rel="noreferrer" class="project-link">finotcharity.vercel.app</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-solid fa-laptop-code"></i></div><h4>HAPI PORTFOLIO</h4><div class="project-sub">portfolio · personal brand</div><p class="project-desc">A cinematic one-page portfolio built to showcase my live products, design language, and identity as an AI-advanced professional builder.</p><p class="project-spec"><strong>Programming:</strong> HTML, CSS, JavaScript</p><p class="project-spec"><strong>Hosting:</strong> Static web hosting</p><a href="#work" class="project-link">this site →</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-solid fa-mobile-screen-button"></i></div><h4>DINK MINI APP</h4><div class="project-sub">subscription payments</div><p class="project-desc">Mini app for paying subscriptions like Netflix and Telegram Premium from Ethiopia.</p><p class="project-spec"><strong>Programming:</strong> HTML, CSS, JavaScript</p><a href="https://t.me/DINKPaymentBot" target="_blank" rel="noreferrer" class="project-link">open via DINK →</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-solid fa-church"></i></div><h4>FINOT MEMBER REGISTRATION</h4><div class="project-sub">church platform</div><p class="project-desc">Member registration platform for church onboarding, records, and organized registration flow.</p><p class="project-spec"><strong>Programming:</strong> HTML, CSS, JavaScript</p><a href="#contact" class="project-link">church demo →</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-solid fa-layer-group"></i></div><h4>FINOT SAAS</h4><div class="project-sub">saas product</div><p class="project-desc">Software platform focused on digital workflows, service delivery, and scalable product structure.</p><p class="project-spec"><strong>Programming:</strong> HTML, CSS, JavaScript</p><a href="#contact" class="project-link">demo on request →</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-solid fa-gamepad"></i></div><h4>BINGO GAME</h4><div class="project-sub">interactive game</div><p class="project-desc">Digital bingo experience with front-end game logic, responsive interaction, and player feedback.</p><p class="project-spec"><strong>Programming:</strong> HTML, CSS, JavaScript</p><a href="#contact" class="project-link">play demo →</a></div>
+        <div class="project-tile reveal"><div class="project-icon"><i class="fa-solid fa-robot"></i></div><h4>CHAT BOT AI</h4><div class="project-sub">ai assistant</div><p class="project-desc">AI chatbot for assistant-style conversations, automated responses, and support workflows.</p><p class="project-spec"><strong>Programming:</strong> Python, JavaScript</p><a href="#contact" class="project-link">AI demo →</a></div>
       </div>
     </div>
-
-    <!-- contact area -->
     <div class="contact-area" id="contact">
       <div class="contact-left reveal">
         <h2>REACH OUT <br> break the grid</h2>
         <a href="mailto:nebiyuelyas3@gmail.com">nebiyuelyas3@gmail.com</a>
         <a href="tel:+251924337490">+251 924 337 490</a>
-        <div style="margin: 2rem 0;">
+        <div style="margin:2rem 0;">
           <button class="btn-primary" onclick="window.location.href='mailto:nebiyuelyas3@gmail.com'">send a flare</button>
         </div>
       </div>
       <div class="contact-right">
         <div class="social-bunch">
-          <a href="https://t.me/neb_ela" target="_blank" class="social-icon"><i class="fa-brands fa-telegram"></i></a>
-          <a href="https://instagram.com/hapi_ela" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://github.com/NebiyuEla" target="_blank" class="social-icon"><i class="fa-brands fa-github"></i></a>
+          <a href="https://t.me/neb_ela" target="_blank" rel="noreferrer" class="social-icon"><i class="fa-brands fa-telegram"></i></a>
+          <a href="https://instagram.com/hapi_ela" target="_blank" rel="noreferrer" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://github.com/NebiyuEla" target="_blank" rel="noreferrer" class="social-icon"><i class="fa-brands fa-github"></i></a>
         </div>
         <div class="contact-note">
-          <p style="font-size: 1.8rem; font-weight: 600; line-height: 1.2;">Based in Ethiopia, working worldwide.</p>
-          <p style="margin: 1.5rem 0;">I don't do boring. Let's build something that bends perception.</p>
+          <p style="font-size:1.8rem;font-weight:600;line-height:1.2;">Based in Ethiopia, working worldwide.</p>
+          <p style="margin:1.5rem 0;">Public links are included where available. For private demos like Finot SaaS, Member Registration, Bingo Game, and Chat Bot AI, use the contact section and I will share access.</p>
         </div>
       </div>
     </div>
-
     <footer class="footer">
-      <span>© 2025 NEBIYU ELYAS · founder DINK Payment</span>
-      <span>design · code · motion · bots · live stream</span>
+      <span>© 2026 NEBIYU ELYAS · founder DINK Payment</span>
+      <span>design · code · SaaS · bots · AI · live stream</span>
     </footer>
   </div>
-
   <script>
     (function() {
-      // cursor
       const dot = document.getElementById('cursorDot');
       const ring = document.getElementById('cursorRing');
-
       document.addEventListener('mousemove', (e) => {
         dot.style.left = e.clientX + 'px';
         dot.style.top = e.clientY + 'px';
@@ -823,8 +139,6 @@
           ring.style.top = e.clientY + 'px';
         }, 30);
       });
-
-      // hover effect
       const interactive = document.querySelectorAll('a, button, .card, .project-tile, .stat-rotator, .nav-link, .social-icon, .founder-highlight, .btn-primary, .btn-outline');
       interactive.forEach(el => {
         el.addEventListener('mouseenter', () => {
@@ -846,8 +160,6 @@
           ring.style.borderWidth = '2px';
         });
       });
-
-      // scroll reveal
       const reveals = document.querySelectorAll('.reveal');
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -855,8 +167,6 @@
         });
       }, { threshold: 0.15, rootMargin: '0px 0px -70px 0px' });
       reveals.forEach(r => observer.observe(r));
-
-      // smooth anchor
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
           e.preventDefault();
